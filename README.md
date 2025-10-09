@@ -17,7 +17,7 @@ Su filosofía se basa en:
 🌐 **Redes sociales y contacto:**
 - Instagram: [@detena_entrena](https://www.instagram.com/camarondavid/)
 - TikTok: [@detena_entrena](https://tiktok.com/@detena_entrena)
-- Correo: `detenaentrena@gmail.com` (opcional si existe)
+- Correo: `Daviddetena@gmail.com'
 
 ---
 
