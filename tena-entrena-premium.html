@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido/a</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+            color: #1A1A1A;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* PORTADA */
+        .cover {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 50%, #0A0A0A 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(214, 40, 40, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(214, 40, 40, 0.1) 0%, transparent 50%);
+        }
+
+        .logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 64px;
+            font-weight: 900;
+            letter-spacing: 8px;
+            margin-bottom: 30px;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 30px rgba(214, 40, 40, 0.5), 0 0 60px rgba(214, 40, 40, 0.3);
+        }
+
+        .cover h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: #FFFFFF;
+            position: relative;
+            z-index: 1;
+            line-height: 1.2;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .red-line {
+            width: 150px;
+            height: 5px;
+            background: linear-gradient(90deg, transparent 0%, #D62828 50%, transparent 100%);
+            margin: 30px auto;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 20px rgba(214, 40, 40, 0.6);
+        }
+
+        .cover p {
+            font-size: 28px;
+            font-weight: 300;
+            color: #E0E0E0;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 1px;
+        }
+
+        /* CARTA DE BIENVENIDA */
+        .welcome-letter {
+            padding: 80px 60px;
+            background: #FFFFFF;
+            border-radius: 24px;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.04);
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-letter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #D62828 0%, #A01F1F 100%);
+        }
+
+        .trainer-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 40px;
+            display: block;
+            box-shadow: 
+                0 20px 60px rgba(214, 40, 40, 0.25),
+                0 0 0 8px rgba(214, 40, 40, 0.1),
+                0 0 0 16px rgba(214, 40, 40, 0.05);
+            border: 6px solid #FFFFFF;
+            background: linear-gradient(135deg, #F5F5F5 0%, #E0E0E0 100%);
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .welcome-letter h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 40px;
+            color: #0A0A0A;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .welcome-letter h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #D62828 0%, transparent 100%);
+        }
+
+        .welcome-letter p {
+            font-size: 17px;
+            margin-bottom: 24px;
+            color: #3A3A3A;
+            line-height: 1.9;
+            font-weight: 400;
+        }
+
+        .welcome-letter p strong {
+            color: #D62828;
+            font-weight: 700;
+        }
+
+        .signature {
+            margin-top: 50px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #0A0A0A;
+            font-size: 22px;
+            font-weight: 700;
+            position: relative;
+            padding-top: 30px;
+        }
+
+        .signature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: #D62828;
+        }
+
+        /* EXPECTATIVAS Y ROLES */
+        .expectations {
+            padding: 80px 60px;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
+            border-radius: 24px;
+            margin: 60px 0;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .expectations h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 60px;
+            text-align: center;
+            color: #FFFFFF;
+            position: relative;
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .role-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .role-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .role-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #D62828 0%, #FF4444 100%);
+        }
+
+        .role-box h3 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .role-box ul {
+            list-style: none;
+        }
+
+        .role-box li {
+            padding: 16px 0;
+            color: #E0E0E0;
+            font-size: 16px;
+            font-weight: 400;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .role-box li:last-child {
+            border-bottom: none;
+        }
+
+        .role-box li:before {
+            content: "✓";
+            color: #D62828;
+            font-weight: 900;
+            font-size: 18px;
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background: rgba(214, 40, 40, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* CÓMO FUNCIONA */
+        .how-it-works {
+            padding: 80px 60px;
+            margin: 60px 0;
+        }
+
+        .how-it-works h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 60px;
+            text-align: center;
+            color: #0A0A0A;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .step-card {
+            background: #FFFFFF;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #D62828 0%, #FF4444 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.12),
+                0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .step-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .step-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 12px rgba(214, 40, 40, 0.3));
+        }
+
+        .step-card h3 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: #0A0A0A;
+        }
+
+        .step-card p {
+            color: #4A4A4A;
+            font-size: 16px;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* REGLAS DEL GIMNASIO */
+        .gym-rules {
+            padding: 80px 60px;
+            background: linear-gradient(135deg, #FAFAFA 0%, #FFFFFF 100%);
+            border-radius: 24px;
+            margin: 60px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .gym-rules h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 50px;
+            text-align: center;
+            color: #0A0A0A;
+        }
+
+        .rule-item {
+            background: #FFFFFF;
+            padding: 30px 40px;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            border-left: 5px solid #D62828;
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.06),
+                0 1px 4px rgba(0, 0, 0, 0.03);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .rule-item:hover {
+            transform: translateX(5px);
+            box-shadow: 
+                0 8px 24px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .rule-number {
+            font-size: 32px;
+            font-weight: 900;
+            color: #D62828;
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            background: rgba(214, 40, 40, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rule-text {
+            color: #3A3A3A;
+            font-size: 17px;
+            line-height: 1.7;
+            font-weight: 400;
+            padding-top: 8px;
+        }
+
+        /* FILOSOFÍA */
+        .philosophy {
+            padding: 80px 60px;
+            margin: 60px 0;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .philosophy h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 50px;
+            text-align: center;
+            color: #FFFFFF;
+        }
+
+        .philosophy-quote {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            color: #FFFFFF;
+            padding: 35px 40px;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            border-left: 6px solid #D62828;
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 1.8;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Comillas iniciales */
+        .philosophy-quote::before {
+            content: '"';
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 60px;
+            color: rgba(214, 40, 40, 0.3);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+
+        /* Comillas finales */
+        .philosophy-quote::after {
+            content: '"';
+            position: absolute;
+            bottom: 10px;
+            right: 25px;
+            font-size: 60px;
+            color: rgba(214, 40, 40, 0.3);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+            transform: rotate(180deg);
+        }
+
+        .philosophy-quote:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* SEGUIMIENTO */
+        .tracking {
+            padding: 80px 60px;
+            background: #FFFFFF;
+            border-radius: 24px;
+            margin: 60px 0;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .tracking h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #0A0A0A;
+        }
+
+        .tracking > p {
+            color: #4A4A4A;
+            margin-bottom: 40px;
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: center;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tracking-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #FFFFFF;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .tracking-table th,
+        .tracking-table td {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .tracking-table th {
+            background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tracking-table td {
+            font-weight: 600;
+            color: #3A3A3A;
+            font-size: 16px;
+        }
+
+        .tracking-table tbody tr {
+            transition: background 0.3s ease;
+        }
+
+        .tracking-table tbody tr:hover {
+            background: #FAFAFA;
+        }
+
+        .form-notice {
+            background: linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 100%);
+            padding: 40px;
+            border-radius: 16px;
+            border: 2px solid #D62828;
+            margin-top: 40px;
+            box-shadow: 0 8px 24px rgba(214, 40, 40, 0.15);
+            position: relative;
+        }
+
+        .form-notice::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #D62828, #FF4444);
+            border-radius: 16px;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(10px);
+        }
+
+        .form-notice h3 {
+            color: #D62828;
+            margin-bottom: 16px;
+            font-size: 24px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-notice p {
+            color: #3A3A3A;
+            text-align: left;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .form-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .form-link a {
+            display: inline-block;
+            background-color: #D62828; 
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .form-link a:hover {
+            background-color: #b81f1f; 
+            transform: translateY(-2px);
+        }
+
+        /* COMPROMISO */
+        .commitment {
+            padding: 80px 60px;
+            margin: 60px 0;
+        }
+
+        .commitment h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #0A0A0A;
+        }
+
+        .commitment > p {
+            text-align: center;
+            color: #4A4A4A;
+            margin-bottom: 40px;
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        .commitment-list {
+            background: #FFFFFF;
+            padding: 50px;
+            border-radius: 20px;
+            list-style: none;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .commitment-list li {
+            padding: 24px 30px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #FAFAFA 0%, #FFFFFF 100%);
+            border-radius: 12px;
+            border-left: 5px solid #D62828;
+            color: #3A3A3A;
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .commitment-list li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .commitment-list li:before {
+            content: "✓";
+            color: #FFFFFF;
+            background: linear-gradient(135deg, #D62828 0%, #FF4444 100%);
+            font-weight: 900;
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(214, 40, 40, 0.3);
+        }
+
+        /* TESTIMONIOS */
+        .testimonials {
+            padding: 80px 60px;
+            background: linear-gradient(135deg, #FAFAFA 0%, #FFFFFF 100%);
+            border-radius: 24px;
+            margin: 60px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .testimonials h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 60px;
+            text-align: center;
+            color: #0A0A0A;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: #FFFFFF;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Comillas iniciales */
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            font-size: 80px;
+            color: rgba(214, 40, 40, 0.1);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+
+        /* Comillas finales */
+        .testimonial-card::after {
+            content: '"';
+            position: absolute;
+            bottom: 10px;
+            right: 25px;
+            font-size: 80px;
+            color: rgba(214, 40, 40, 0.1);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+            transform: rotate(180deg);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 16px 48px rgba(0, 0, 0, 0.12),
+                0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .testimonial-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, #F0F0F0 0%, #E0E0E0 100%);
+            border: 5px solid #FFFFFF;
+            box-shadow: 
+                0 8px 24px rgba(214, 40, 40, 0.2),
+                0 0 0 4px rgba(214, 40, 40, 0.1);
+        }
+
+        .testimonial-name {
+            font-weight: 800;
+            color: #0A0A0A;
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        .testimonial-text {
+            color: #4A4A4A;
+            font-style: italic;
+            font-size: 15px;
+            line-height: 1.7;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            object-fit: cover;
+            border: 5px solid #FFFFFF;
+            box-shadow: 
+                0 8px 24px rgba(214, 40, 40, 0.2),
+                0 0 0 4px rgba(214, 40, 40, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 12px 32px rgba(214, 40, 40, 0.25),
+                0 0 0 6px rgba(214, 40, 40, 0.15);
+        }
+
+        /* CONTACTO */
+        .contact {
+            padding: 80px 60px;
+            margin: 60px 0;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
+            color: #FFFFFF;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #FFFFFF;
+        }
+
+        .contact > p {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 20px;
+            color: #E0E0E0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 12px rgba(214, 40, 40, 0.4));
+        }
+
+        .contact-label {
+            font-size: 13px;
+            color: #D62828;
+            margin-bottom: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-value {
+            font-size: 18px;
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .response-time {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #D62828 0%, #A01F1F 100%);
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: 
+                0 8px 24px rgba(214, 40, 40, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 80px 60px;
+            margin: 60px 0;
+        }
+
+        .faq h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 50px;
+            text-align: center;
+            color: #0A0A0A;
+        }
+
+        .faq-item {
+            background: #FFFFFF;
+            padding: 35px 40px;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            border-left: 5px solid #D62828;
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.06),
+                0 1px 4px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateX(5px);
+            box-shadow: 
+                0 8px 24px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .faq-question {
+            font-weight: 800;
+            color: #0A0A0A;
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        .faq-answer {
+            color: #4A4A4A;
+            line-height: 1.8;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .cover h1 {
+                font-size: 42px;
+            }
+
+            .logo {
+                font-size: 36px;
+            }
+
+            .role-grid,
+            .steps-grid,
+            .testimonials-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-letter,
+            .expectations,
+            .how-it-works,
+            .gym-rules,
+            .philosophy,
+            .tracking,
+            .commitment,
+            .testimonials,
+            .contact,
+            .faq {
+                padding: 50px 30px;
+            }
+
+            .welcome-letter h2,
+            .expectations h2,
+            .how-it-works h2,
+            .gym-rules h2,
+            .philosophy h2,
+            .tracking h2,
+            .commitment h2,
+            .testimonials h2,
+            .contact h2,
+            .faq h2 {
+                font-size: 32px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .cover,
+            .welcome-letter,
+            .philosophy {
+                page-break-after: always;
+            }
+        }
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            /* Opcional: evita recortes y añade márgenes */
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Mantiene fondos y sombras */
+            .cover,
+            .expectations,
+            .philosophy,
+            .contact {
+                background: inherit !important;
+                box-shadow: none !important;
+            }
+
+            /* Evita saltos de página dentro de secciones */
+            section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- PORTADA -->
+        <section class="cover">
+            <div class="logo">DAVID DE TENA</div>
+            <div class="red-line"></div>
+            <h1>Bienvenido/a</h1>
+            <p>Empieza el viaje hacia tu mejor versión.</p>
+        </section>
+
+        <!-- CARTA DE BIENVENIDA -->
+        <section class="welcome-letter">
+            <img src="assets/Main.png" alt="David de Tena" class="trainer-photo">
+            <h2>Carta de Bienvenida</h2>
+            <p><strong>Hola</strong>,</p>
+            <p>Gracias por confiar en mí para acompañarte en este proceso. Quiero que sepas que esto no es solo un programa de entrenamiento más. Es el inicio de una transformación real, basada en compromiso, honestidad y trabajo constante.</p>
+            <p>Mi objetivo no es solo que consigas resultados visibles, sino que disfrutes cada paso del camino. Quiero que aprendas, que te sorprendas con lo que eres capaz de lograr y que construyas una nueva mentalidad hacia el entrenamiento y tu salud.</p>
+            <p>Este programa está diseñado exclusivamente para ti. No es una plantilla genérica. “Este programa combina los principios que realmente funcionan con una aplicación práctica adaptada a ti. Lo importante es hacer bien lo esencial, de forma constante y con criterio.</p>
+            <p>Vamos a trabajar juntos, y quiero que sepas que estaré contigo en cada duda, en cada avance y en cada dificultad. Mi compromiso es total.</p>
+            <p class="signature">— David de Tena<br>Entrenador personal</p>
+        </section>
+
+        <!-- EXPECTATIVAS Y ROLES -->
+        <section class="expectations">
+            <h2>Expectativas y Roles Definidos</h2>
+            <div class="role-grid">
+                <div class="role-box">
+                    <h3>🎯 Que vas a hacer tu</h3>
+                    <ul>
+                        <li>Seguir los entrenamientos asignados</li>
+                        <li>Registrar tu progreso en Hevy</li>
+                        <li>Seguir una alimentación equilibrada, suficiente y adaptada a tus necesidades energéticas</li>
+                        <li>Enviar feedback y videos cuando se soliciten</li>
+                        <li>Ser constante y honesto con tu proceso</li>
+                    </ul>
+                </div>
+                <div class="role-box">
+                    <h3>💪 Que voy a hacer yo</h3>
+                    <ul>
+                        <li>Revisar tu técnica y evolución constantemente</li>
+                        <li>Videollamadas de seguimiento personalizadas</li>
+                        <li>Disponibilidad regular con respuesta garantizada en los días establecidos de comunicación</li>
+                        <li>Ajustes personalizados según tu progreso</li>
+                        <li>Soporte continuo y orientación constante</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CÓMO FUNCIONA -->
+        <section class="how-it-works">
+            <h2>Cómo Funciona Tu Programa</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon">📱</div>
+                    <h3>App Hevy</h3>
+                    <p>Crea tu cuenta en Hevy y búscame como "Daviddetena". Ahí recibirás tu rutina personalizada y podrás registrar todos tus entrenamientos.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">💪</div>
+                    <h3>Rutina Inteligente</h3>
+                    <p>Tu plan está diseñado con los principios que mejor funcionan para la mayoría, ajustado a tu nivel actual y a tu contexto. La clave no está en reinventar la rueda, sino en aplicarla bien.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">🎯</div>
+                    <h3>Seguimiento Continuo</h3>
+                    <p>Comunicación directa por WhatsApp. Pregunta lo que necesites, comparte tus sensaciones y mantengamos contacto activo.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">🎥</div>
+                    <h3>Videocorrecciones</h3>
+                    <p>Envíame videos de tus ejercicios clave. Revisaré tu técnica y te daré feedback específico para optimizar tu ejecución.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- REGLAS DEL GIMNASIO -->
+        <section class="gym-rules">
+            <h2>Reglas del Gimnasio</h2>
+            <div class="rule-item">
+                <span class="rule-number">1</span>
+                <span class="rule-text">Respeta la zona de mancuernas. No acapares espacio innecesario y devuelve el material a su lugar.</span>
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">2</span>
+                <span class="rule-text">Evita la zona Ab para pesos pesados. Usa las áreas designadas para ejercicios con cargas elevadas.</span>
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">3</span>
+                <span class="rule-text">No cruces delante de alguien que entrena. Respeta su espacio y su concentración durante el ejercicio.</span>
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">4</span>
+                <span class="rule-text">Coloca el material en su sitio después de usarlo. Dejemos el gimnasio mejor de como lo encontramos.</span>
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">5</span>
+                <span class="rule-text">Entrenar con respeto y criterio hace que todos disfruten más del proceso.</span>
+            </div>
+        </section>
+
+        <!-- FILOSOFÍA -->
+        <section class="philosophy">
+            <h2>Filosofía David De Tena</h2>
+            <div class="philosophy-quote">
+                No vendo promesas, construimos hábitos reales.
+            </div>
+            <div class="philosophy-quote">
+                Entrenamos para toda la vida, no solo para el verano.
+            </div>
+            <div class="philosophy-quote">
+                Menos postureo, más progreso.
+            </div>
+            <div class="philosophy-quote">
+                Tu plan empieza contigo. No con una plantilla.
+            </div>
+            <div class="philosophy-quote">
+                La constancia vence al talento cuando el talento no es constante.
+            </div>
+            <div class="philosophy-quote">
+                No buscamos perfección, buscamos evolución continua.
+            </div>
+            <div class="philosophy-quote">
+                El respeto al proceso es el camino hacia los resultados.
+            </div>
+            <div class="philosophy-quote">
+                Cada repetición cuenta. Cada decisión importa.
+            </div>
+        </section>
+
+        <!-- SEGUIMIENTO Y RECUPERACIÓN -->
+        <section class="tracking">
+            <h2>Seguimiento y Recuperación</h2>
+            <p>Durante tu proceso, revisaremos juntos tu progreso, descanso y estado de ánimo. Me interesa cómo te sientes, no solo tus resultados.</p>
+            
+            <table class="tracking-table">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Humor</th>
+                        <th>Sueño</th>
+                        <th>Dolor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>05/03/25</td>
+                        <td>9/10</td>
+                        <td>8/10</td>
+                        <td>0/10</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="form-notice">
+                <h3>📋 Ficha de Seguimiento</h3>
+                <p>
+                    Antes de comenzar, deberás rellenar un formulario de Google Form donde recopilaré información clave sobre tu historial, objetivos y estado actual.
+                    Este formulario me permitirá generar tu ficha de seguimiento personalizada. Ante cualquier duda no dudes en preguntarme.
+                </p>
+                <p class="form-link">
+                    <a href="https://example.com/formulario-fake" target="_blank">Acceder al formulario de seguimiento</a>
+                </p>
+            </div>
+        </section>
+
+        <!-- COMPROMISO DEL CLIENTE -->
+        <section class="commitment">
+            <h2>Tu Compromiso</h2>
+            <p>Para que tu proceso funcione al máximo, comprométete a esto:</p>
+            <ul class="commitment-list">
+                <li>Ser honesto con mis sensaciones y feedback</li>
+                <li>Enviar mis vídeos cuando me lo pidan para revisión técnica</li>
+                <li>Comprometerme al menos 8 semanas de seguimiento continuo</li>
+                <li>Mantener comunicación activa con mi entrenador</li>
+                <li>Respetar los días de descanso programados</li>
+                <li>Avisar con antelación si hay cambios en mi disponibilidad</li>
+            </ul>
+        </section>
+
+        <!-- TESTIMONIOS -->
+        <section class="testimonials">
+            <h2>Ellos ya confiaron. Ahora es tu turno.</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <img src="assets/Ali_testimonio.jpeg" alt="Foto de Alicia L." class="testimonial-photo">
+                    <div class="testimonial-name">Alicia L.</div>
+                    <div class="testimonial-text">En 3 meses he conseguido lo que llevaba años intentando. David me ha enseñado a entrenar de verdad, sin atajos ni promesas vacías.</div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="assets/Cepa_testimonio.jpeg" alt="Foto de Carlos T." class="testimonial-photo">
+                    <div class="testimonial-name">Carlos T.</div>
+                    <div class="testimonial-text">La atención personalizada marca la diferencia. Siempre responde, siempre ajusta el plan y siempre te motiva a seguir adelante.</div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="assets/Anto_testimonio.jpeg" alt="Foto de Antonio B." class="testimonial-photo">
+                    <div class="testimonial-name">Antonio B.</div>
+                    <div class="testimonial-text">No es solo un entrenador, es alguien que realmente se preocupa por tu progreso. He aprendido más en 2 meses que en años entrenando sola.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACTO -->
+        <section class="contact">
+            <h2>Soporte y Contacto</h2>
+            <p>Estoy disponible para ti 24h. Contacta conmigo por cualquier duda:</p>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-label">Teléfono</div>
+                    <div class="contact-value">+34 615 328 602</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value">contacto@tenanetrena.com</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">💬</div>
+                    <div class="contact-label">WhatsApp</div>
+                    <div class="contact-value">Disponible 24h</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📸</div>
+                    <div class="contact-label">Instagram</div>
+                    <div class="contact-value">@daviddetena</div>
+                </div>
+            </div>
+            <div class="response-time">
+                ⚡ Media de respuesta: < 1 hora
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="faq">
+            <h2>Preguntas Frecuentes</h2>
+            <div class="faq-item">
+                <div class="faq-question">¿Cuándo recibiré mi rutina?</div>
+                <div class="faq-answer">Una vez completes el formulario de seguimiento, recibirás tu rutina personalizada en Hevy en un plazo máximo de 48 horas.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Cómo envío mis vídeos de técnica?</div>
+                <div class="faq-answer">Directamente por WhatsApp. Graba los ejercicios desde un ángulo lateral que me permita ver tu postura completa y envíamelos cuando te lo solicite o cuando tengas dudas.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Qué hago si no puedo entrenar un día?</div>
+                <div class="faq-answer">Avísame lo antes posible. Ajustaremos el calendario y redistribuiremos las sesiones para que no pierdas progreso. La flexibilidad es clave.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Qué pasa si tengo molestias o dolor?</div>
+                <div class="faq-answer">Comunícamelo inmediatamente. Pararemos el ejercicio que causa molestia, evaluaremos la situación y adaptaremos tu rutina. Tu salud es siempre la prioridad.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Puedo cambiar mi horario de seguimiento?</div>
+                <div class="faq-answer">Por supuesto. Háblame con antelación y ajustaremos las videollamadas y el plan a tu nueva disponibilidad. Flexibilidad y compromiso van de la mano.</div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
