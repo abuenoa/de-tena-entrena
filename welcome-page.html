@@ -29,7 +29,7 @@
 
         /* PORTADA */
         .cover {
-            height: 100vh;
+            height: 95vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -1040,6 +1040,59 @@
                 page-break-inside: avoid;
             }
         }
+        @media print {
+            html, body {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background: #0A0A0A !important;
+                color: #fff !important;
+            }
+            * {
+                box-shadow: none !important;
+                backdrop-filter: none !important;
+            }
+        }
+        /* === EVITAR CORTES EN PDF === */
+        @media print {
+        /* Evita que las secciones se corten a mitad */
+        section, 
+        .welcome-letter, 
+        .expectations, 
+        .how-it-works, 
+        .gym-rules, 
+        .philosophy, 
+        .tracking, 
+        .commitment, 
+        .testimonials, 
+        .contact, 
+        .faq, 
+        .testimonial-card,
+        .faq-item,
+        .rule-item,
+        .philosophy-quote,
+        .step-card,
+        .role-box,
+        .form-notice {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+            page-break-after: auto;
+        }
+
+        /* Evita cortes de encabezados */
+        h2, h3, h4 {
+            page-break-after: avoid !important;
+        }
+
+        /* Añade un pequeño margen entre secciones para evitar que se peguen */
+        section {
+            margin-bottom: 40px !important;
+        }
+
+        /* Elimina sombras en PDF */
+        * {
+            box-shadow: none !important;
+        }
+        }
     </style>
 </head>
 <body>
@@ -1156,9 +1209,6 @@
                 Menos postureo, más progreso.
             </div>
             <div class="philosophy-quote">
-                Tu plan empieza contigo. No con una plantilla.
-            </div>
-            <div class="philosophy-quote">
                 La constancia vence al talento cuando el talento no es constante.
             </div>
             <div class="philosophy-quote">
@@ -1166,9 +1216,6 @@
             </div>
             <div class="philosophy-quote">
                 El respeto al proceso es el camino hacia los resultados.
-            </div>
-            <div class="philosophy-quote">
-                Cada repetición cuenta. Cada decisión importa.
             </div>
         </section>
 
@@ -1247,7 +1294,7 @@
         <!-- CONTACTO -->
         <section class="contact">
             <h2>Soporte y Contacto</h2>
-            <p>Estoy disponible para ti 24h. Contacta conmigo por cualquier duda:</p>
+            <p>Estoy disponible para ti. Contacta conmigo por cualquier duda:</p>
             <div class="contact-grid">
                 <div class="contact-item">
                     <div class="contact-icon">📞</div>

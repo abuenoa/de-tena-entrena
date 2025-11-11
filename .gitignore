@@ -1,0 +1,52 @@
+# ======================
+# PYTHON ENVIRONMENTS
+# ======================
+venv/
+env/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.sqlite3
+
+# ======================
+# NODE / JAVASCRIPT
+# ======================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# ======================
+# BUILD / DIST OUTPUTS
+# ======================
+dist/
+build/
+tmp/
+.cache/
+*.egg-info/
+
+# ======================
+# SYSTEM / OS FILES
+# ======================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ======================
+# VS CODE / IDE FILES
+# ======================
+.vscode/
+.idea/
+*.code-workspace
+
+# ======================
+# PROJECT SPECIFIC
+# ======================
+tena-entrena.pdf
+*.bak
+*.tmp
+*.log
