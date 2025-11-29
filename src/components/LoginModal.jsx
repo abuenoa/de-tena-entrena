@@ -1,23 +1,46 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Lock, Mail } from 'lucide-react';
+import { X, Lock, Mail, User } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
 const LoginModal = ({ isOpen, onClose }) => {
+    const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
     const [error, setError] = useState('');
-    const { login } = useAuth();
+    const { login, register } = useAuth();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        const success = login(email, password);
+
+        let success;
+        if (isLogin) {
+            success = await login(email, password);
+        } else {
+            if (!name) {
+                setError('Name is required');
+                return;
+            }
+            success = await register(email, password, name);
+        }
+
         if (success) {
             onClose();
+            // Reset state
+            setEmail('');
+            setPassword('');
+            setName('');
+            setIsLogin(true);
         } else {
-            setError('Invalid credentials');
+            setError(isLogin ? 'Invalid credentials' : 'Registration failed');
         }
+    };
+
+    const toggleMode = () => {
+        setIsLogin(!isLogin);
+        setError('');
     };
 
     return (
@@ -48,11 +71,30 @@ const LoginModal = ({ isOpen, onClose }) => {
                             </button>
 
                             <div className="mb-8 text-center">
-                                <h2 className="font-display text-3xl font-bold text-white">Access</h2>
-                                <p className="text-sm text-white/50">Enter your credentials to continue</p>
+                                <h2 className="font-display text-3xl font-bold text-white">
+                                    {isLogin ? 'Access' : 'Join Us'}
+                                </h2>
+                                <p className="text-sm text-white/50">
+                                    {isLogin ? 'Enter your credentials to continue' : 'Create your account to start training'}
+                                </p>
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
+                                {!isLogin && (
+                                    <div className="space-y-2">
+                                        <div className="relative">
+                                            <User className="absolute left-0 top-3 h-5 w-5 text-white/30" />
+                                            <input
+                                                type="text"
+                                                placeholder="Full Name"
+                                                value={name}
+                                                onChange={(e) => setName(e.target.value)}
+                                                className="w-full border-b border-white/10 bg-transparent py-3 pl-8 text-white placeholder-white/30 focus:border-brand-red focus:outline-none transition-colors"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <Mail className="absolute left-0 top-3 h-5 w-5 text-white/30" />
@@ -87,9 +129,18 @@ const LoginModal = ({ isOpen, onClose }) => {
                                     type="submit"
                                     className="w-full rounded-full bg-white py-3 font-bold text-brand-black transition-transform hover:scale-[1.02] active:scale-[0.98]"
                                 >
-                                    ENTER
+                                    {isLogin ? 'ENTER' : 'CREATE ACCOUNT'}
                                 </button>
                             </form>
+
+                            <div className="mt-6 text-center">
+                                <button
+                                    onClick={toggleMode}
+                                    className="text-sm text-white/50 hover:text-white transition-colors"
+                                >
+                                    {isLogin ? "Don't have an account? Sign up" : "Already have an account? Login"}
+                                </button>
+                            </div>
                         </motion.div>
                     </motion.div>
                 </>
