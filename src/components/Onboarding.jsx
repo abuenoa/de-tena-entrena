@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Check, Activity, Zap, Heart } from 'lucide-react';
+import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
+import { db, auth } from '../firebase';
 
 const Onboarding = ({ onComplete }) => {
     const [step, setStep] = useState(0);
@@ -15,11 +17,34 @@ const Onboarding = ({ onComplete }) => {
     const totalSteps = 3;
     const progress = ((step + 1) / totalSteps) * 100;
 
-    const handleNext = () => {
+    const handleNext = async () => {
         if (step < totalSteps - 1) {
             setStep(step + 1);
         } else {
-            onComplete();
+            try {
+                if (auth.currentUser) {
+                    const userRef = doc(db, "users", auth.currentUser.uid);
+                    const historyRef = collection(userRef, "history");
+
+                    // 1. Add to history
+                    await addDoc(historyRef, {
+                        ...formData,
+                        date: new Date()
+                    });
+
+                    // 2. Update main profile with latest data
+                    await setDoc(userRef, {
+                        ...formData,
+                        updatedAt: new Date(),
+                        onboardingCompleted: true
+                    }, { merge: true });
+                }
+                onComplete();
+            } catch (error) {
+                console.error("Error saving user data:", error);
+                // Still complete even if save fails, or handle error appropriately
+                onComplete();
+            }
         }
     };
 
@@ -117,8 +142,8 @@ const Onboarding = ({ onComplete }) => {
                                         key={goal.id}
                                         onClick={() => handleChange('goal', goal.id)}
                                         className={`group relative flex flex-col items-center justify-center rounded-2xl border p-8 transition-all ${formData.goal === goal.id
-                                                ? 'border-brand-red bg-brand-red/10'
-                                                : 'border-white/10 bg-white/5 hover:border-white/30'
+                                            ? 'border-brand-red bg-brand-red/10'
+                                            : 'border-white/10 bg-white/5 hover:border-white/30'
                                             }`}
                                     >
                                         <goal.icon className={`mb-4 h-8 w-8 ${formData.goal === goal.id ? 'text-brand-red' : 'text-white'}`} />
