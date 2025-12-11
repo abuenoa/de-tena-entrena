@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
-import { Play, Calendar, TrendingUp, Home, User, Settings, Dumbbell } from 'lucide-react';
-
-const data = [
-    { name: 'W1', weight: 78 },
-    { name: 'W2', weight: 77.5 },
-    { name: 'W3', weight: 76.8 },
-    { name: 'W4', weight: 76.2 },
-    { name: 'W5', weight: 75.5 },
-    { name: 'W6', weight: 75.8 },
-    { name: 'W7', weight: 75.0 },
-];
+import { Play, Calendar, TrendingUp, Home, User, Settings, Dumbbell, Plus } from 'lucide-react';
+import MetricsModal from './MetricsModal';
+import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const UserDashboard = ({ onStartOnboarding }) => {
     const { user, logout } = useAuth();
+    const [isMetricsOpen, setIsMetricsOpen] = useState(false);
+    const [metricsData, setMetricsData] = useState([]);
+
+    useEffect(() => {
+        const fetchMetrics = async () => {
+            if (!user?.uid) return;
+            try {
+                const q = query(collection(db, `users/${user.uid}/metrics`), orderBy('date', 'asc'));
+                const snapshot = await getDocs(q);
+                const data = snapshot.docs.map(doc => ({
+                    name: new Date(doc.data().date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }),
+                    weight: doc.data().weight
+                }));
+                setMetricsData(data);
+            } catch (error) {
+                console.error("Error fetching metrics:", error);
+            }
+        };
+        fetchMetrics();
+    }, [user, isMetricsOpen]); // Re-fetch when modal closes
 
     return (
         <div className="flex min-h-screen w-full flex-col bg-brand-black pb-24 text-white md:pl-24 md:pb-0">
@@ -81,15 +94,23 @@ const UserDashboard = ({ onStartOnboarding }) => {
                     {/* Quick Actions / Onboarding Trigger */}
                     <div className="flex flex-col justify-between rounded-3xl border border-white/10 bg-surface p-6">
                         <div>
-                            <h3 className="font-display text-xl font-bold">Pending Actions</h3>
-                            <p className="text-sm text-white/50">Complete your profile setup.</p>
+                            <h3 className="font-display text-xl font-bold">Quick Actions</h3>
+                            <p className="text-sm text-white/50">Track your progress.</p>
                         </div>
-                        <button
-                            onClick={onStartOnboarding}
-                            className="mt-4 w-full rounded-xl border border-white/10 bg-white/5 py-3 font-medium transition-colors hover:bg-white/10"
-                        >
-                            Update Biometrics
-                        </button>
+                        <div className="space-y-3 mt-4">
+                            <button
+                                onClick={() => setIsMetricsOpen(true)}
+                                className="w-full flex items-center justify-center gap-2 rounded-xl bg-white text-brand-black py-3 font-bold transition-colors hover:bg-white/90"
+                            >
+                                <Plus size={18} /> Update Metrics
+                            </button>
+                            <button
+                                onClick={onStartOnboarding}
+                                className="w-full rounded-xl border border-white/10 bg-white/5 py-3 font-medium transition-colors hover:bg-white/10"
+                            >
+                                Update Profile
+                            </button>
+                        </div>
                     </div>
 
                     {/* Progress Chart */}
@@ -97,13 +118,12 @@ const UserDashboard = ({ onStartOnboarding }) => {
                         <div className="mb-6 flex items-center justify-between">
                             <h3 className="font-display text-xl font-bold">Weight Evolution</h3>
                             <select className="rounded-lg bg-white/5 px-3 py-1 text-sm text-white/70 outline-none">
-                                <option>Last 7 Weeks</option>
-                                <option>Last 3 Months</option>
+                                <option>All Time</option>
                             </select>
                         </div>
                         <div className="h-[200px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
-                                <LineChart data={data}>
+                                <LineChart data={metricsData}>
                                     <Tooltip
                                         contentStyle={{ backgroundColor: '#121212', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
                                         itemStyle={{ color: '#fff' }}
@@ -123,6 +143,8 @@ const UserDashboard = ({ onStartOnboarding }) => {
                     </div>
                 </div>
             </main>
+
+            <MetricsModal isOpen={isMetricsOpen} onClose={() => setIsMetricsOpen(false)} />
         </div>
     );
 };

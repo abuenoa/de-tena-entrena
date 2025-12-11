@@ -29,6 +29,22 @@ const LandingPage = () => {
                         Define Your <br />
                         <span className="text-transparent" style={{ WebkitTextStroke: '2px white' }}>Legacy</span>
                     </motion.h1>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5, duration: 0.8 }}
+                        className="mt-8"
+                    >
+                        <a
+                            href="/contact"
+                            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-brand-red px-8 py-4 font-bold uppercase tracking-wider text-white transition-transform hover:scale-105"
+                        >
+                            <span className="relative z-10">Start Your Journey</span>
+                            <ArrowRight className="relative z-10 transition-transform group-hover:translate-x-1" />
+                            <div className="absolute inset-0 -z-0 bg-gradient-to-r from-red-600 to-red-800 opacity-0 transition-opacity group-hover:opacity-100" />
+                        </a>
+                    </motion.div>
                 </div>
 
                 {/* Scroll Indicator */}
