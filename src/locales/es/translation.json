@@ -3,7 +3,67 @@
         "title_transform": "TRANSFORMA TU CUERPO",
         "title_elevate": "ELEVA TU VIDA",
         "subtitle": "Únete a la élite. Experimenta el coaching online personalizado.",
-        "cta": "EMPEZAR A ENTRENAR"
+        "cta": "EMPEZAR A ENTRENAR",
+        "welcome": {
+            "title": "Bienvenido/a",
+            "subtitle": "Empieza el viaje hacia tu mejor versión.",
+            "letter_title": "Carta de Bienvenida",
+            "letter_p1": "Hola, Gracias por confiar en mí para acompañarte en este proceso. Quiero que sepas que esto no es solo un programa de entrenamiento más. Es el inicio de una transformación real, basada en compromiso, honestidad y trabajo constante.",
+            "letter_p2": "Mi objetivo no es solo que consigas resultados visibles, sino que disfrutes cada paso del camino. Quiero que aprendas, que te sorprendas con lo que eres capaz de lograr y que construyas una nueva mentalidad hacia el entrenamiento y tu salud.",
+            "letter_p3": "Este programa combina los principios que realmente funcionan con una aplicación práctica adaptada a ti. Lo importante es hacer bien lo esencial, de forma constante y con criterio.",
+            "letter_p4": "Vamos a trabajar juntos, y quiero que sepas que estaré contigo en cada duda, en cada avance y en cada dificultad. Mi compromiso es total.",
+            "signature": "— David de Tena, Entrenador personal"
+        },
+        "roles": {
+            "title": "Expectativas y Roles Definidos",
+            "you_title": "🎯 Qué vas a hacer tú",
+            "you_list": [
+                "Seguir los entrenamientos asignados",
+                "Registrar tu progreso en Hevy",
+                "Seguir una alimentación equilibrada",
+                "Enviar feedback y videos cuando se soliciten",
+                "Ser constante y honesto con tu proceso"
+            ],
+            "me_title": "💪 Qué voy a hacer yo",
+            "me_list": [
+                "Revisar tu técnica y evolución constantemente",
+                "Videollamadas de seguimiento personalizadas",
+                "Disponibilidad regular con respuesta garantizada",
+                "Ajustes personalizados según tu progreso",
+                "Soporte continuo y orientación constante"
+            ]
+        },
+        "workflow": {
+            "title": "Cómo Funciona Tu Programa",
+            "hevy_title": "App Hevy",
+            "hevy_desc": "Crea tu cuenta en Hevy y búscame como \"Daviddetena\". Ahí recibirás tu rutina personalizada.",
+            "routine_title": "Rutina Inteligente",
+            "routine_desc": "Tu plan está diseñado con los principios que mejor funcionan, ajustado a tu nivel y contexto.",
+            "tracking_title": "Seguimiento Continuo",
+            "tracking_desc": "Comunicación directa por WhatsApp. Pregunta lo que necesites y mantengamos contacto activo.",
+            "video_title": "Videocorrecciones",
+            "video_desc": "Envíame videos de tus ejercicios clave. Revisaré tu técnica y te daré feedback específico."
+        },
+        "commitment": {
+            "title": "Tu Compromiso",
+            "desc": "Para que tu proceso funcione al máximo, comprométete a esto:",
+            "list": [
+                "Ser honesto con mis sensaciones y feedback",
+                "Enviar mis vídeos cuando me lo pidan",
+                "Comprometerme al menos 8 semanas",
+                "Mantener comunicación activa",
+                "Respetar los días de descanso",
+                "Avisar con antelación si hay cambios"
+            ]
+        },
+        "testimonials": {
+            "title": "Ellos ya confiaron.",
+            "subtitle": "Ahora es tu turno."
+        },
+        "final_cta": {
+            "ready": "¿Listo para empezar?",
+            "button": "EMPEZAR A ENTRENAR"
+        }
     },
     "auth": {
         "login_title": "Acceder",
@@ -58,6 +118,29 @@
     },
     "common": {
         "coming_soon": "Próximamente"
+    },
+    "contact": {
+        "title": "Contacta con Nosotros",
+        "subtitle": "Empieza tu transformación hoy",
+        "form": {
+            "name": "Nombre Completo",
+            "email": "Correo Electrónico",
+            "phone": "Teléfono",
+            "dob": "Fecha de Nacimiento",
+            "city": "¿En qué ciudad vives? (Nos gustaría incluirte en comunidades cercanas)",
+            "city_placeholder": "Selecciona tu ciudad...",
+            "other_city": "Otra ciudad",
+            "history": "¿Has practicado deporte antes? (Detalla si has ido al gimnasio)",
+            "motivation": "¿Por qué es importante para ti hacer este cambio físico?",
+            "referral": "¿Cómo nos conociste?",
+            "referral_placeholder": "Selecciona una opción...",
+            "injury": "¿Tienes alguna patología, lesión crónica o enfermedad relevante?",
+            "extras": "¿Algo más que añadir?",
+            "submit": "ENVIAR SOLICITUD",
+            "sending": "Enviando..."
+        },
+        "success": "¡Mensaje enviado correctamente!",
+        "error": "Hubo un error al enviar el mensaje."
     },
     "admin": {
         "clients": "Clientes",
