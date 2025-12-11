@@ -6,9 +6,11 @@ import ClientList from './admin/ClientList';
 import ContactRequestsList from './admin/ContactRequestsList';
 import ClientDetail from './admin/ClientDetail';
 import ContactRequestDetail from './admin/ContactRequestDetail';
+import { useTranslation } from 'react-i18next';
 
 const AdminDashboard = () => {
     const { user, logout } = useAuth();
+    const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState('clients'); // 'clients' | 'requests'
     const [selectedClient, setSelectedClient] = useState(null);
     const [selectedRequest, setSelectedRequest] = useState(null);
@@ -27,16 +29,19 @@ const AdminDashboard = () => {
                         onClick={() => setActiveTab('clients')}
                         className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 font-medium transition-colors ${activeTab === 'clients' ? 'bg-white/10 text-white' : 'text-white/50 hover:bg-white/5 hover:text-white'}`}
                     >
-                        <User size={20} /> Clients
+                        <User size={20} /> {t('admin.clients')}
                     </button>
                     <button
                         onClick={() => setActiveTab('requests')}
                         className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 font-medium transition-colors ${activeTab === 'requests' ? 'bg-white/10 text-white' : 'text-white/50 hover:bg-white/5 hover:text-white'}`}
                     >
-                        <ClipboardList size={20} /> Requests
+                        <ClipboardList size={20} /> {t('admin.requests')}
                     </button>
-                    <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 font-medium text-white/50 hover:bg-white/5 hover:text-white">
-                        <MessageCircle size={20} /> Messages
+                    <button
+                        className="flex w-full items-center gap-3 rounded-xl px-4 py-3 font-medium text-white/30 cursor-not-allowed"
+                        title={t('common.coming_soon') || "Próximamente"}
+                    >
+                        <MessageCircle size={20} /> {t('admin.messages')}
                     </button>
                 </nav>
 
@@ -44,7 +49,7 @@ const AdminDashboard = () => {
                     <img src={`https://ui-avatars.com/api/?name=${user?.name}&background=D62828&color=fff`} alt="Profile" className="h-10 w-10 rounded-full" />
                     <div className="flex-1 overflow-hidden">
                         <p className="truncate text-sm font-bold">{user?.name}</p>
-                        <button onClick={logout} className="text-xs text-brand-red hover:underline">Logout</button>
+                        <button onClick={logout} className="text-xs text-brand-red hover:underline">{t('auth.logout')}</button>
                     </div>
                 </div>
             </aside>

@@ -1,0 +1,68 @@
+{
+    "landing": {
+        "title_transform": "TRANSFORM YOUR BODY",
+        "title_elevate": "ELEVATE YOUR LIFE",
+        "subtitle": "Join the elite. Experience personalized online coaching.",
+        "cta": "START TRAINING"
+    },
+    "auth": {
+        "login_title": "Access",
+        "register_title": "Join Us",
+        "login_subtitle": "Enter your credentials to continue",
+        "register_subtitle": "Create your account to start training",
+        "name_label": "Full Name",
+        "email_label": "Email",
+        "password_label": "Password",
+        "login_btn": "ENTER",
+        "register_btn": "CREATE ACCOUNT",
+        "switch_sc_signup": "Don't have an account? Sign up",
+        "switch_to_login": "Already have an account? Login",
+        "logout": "Logout",
+        "profile": "Profile"
+    },
+    "nav": {
+        "home": "Home",
+        "plan": "Plan",
+        "stats": "Stats",
+        "admin": "Admin"
+    },
+    "dashboard": {
+        "welcome": "Welcome back,",
+        "weight_evolution": "{{type}} Evolution",
+        "update_metrics": "Update Metrics",
+        "update_profile": "Update Profile",
+        "todays_session": "Today's Session",
+        "quick_actions": "Quick Actions",
+        "week_phase": "Week 4 • Strength Phase",
+        "today_title": "Today's Session",
+        "subtitle": "Track your progress.",
+        "exercises": "Exercises",
+        "intensity": "High Intensity",
+        "start_session": "Start Session"
+    },
+    "metrics": {
+        "modal_title": "Update Metrics",
+        "manage_title": "Manage Metrics",
+        "add_new": "Add New",
+        "metric_type": "Metric Type",
+        "value": "Value",
+        "notes": "Notes",
+        "notes_placeholder": "How did it feel?",
+        "save": "Save Progress",
+        "saving": "Saving...",
+        "loading": "Loading...",
+        "types": {
+            "weight": "Weight",
+            "sleep": "Sleep",
+            "height": "Height",
+            "nutrition": "Nutrition"
+        }
+    },
+    "common": {
+        "coming_soon": "Coming Soon"
+    },
+    "admin": {
+        "clients": "Clients",
+        "requests": "Requests"
+    }
+}

@@ -1,0 +1,67 @@
+{
+    "landing": {
+        "title_transform": "TRANSFORMA TU CUERPO",
+        "title_elevate": "ELEVA TU VIDA",
+        "subtitle": "Únete a la élite. Experimenta el coaching online personalizado.",
+        "cta": "EMPEZAR A ENTRENAR"
+    },
+    "auth": {
+        "login_title": "Acceder",
+        "register_title": "Únete",
+        "login_subtitle": "Introduce tus credenciales para continuar",
+        "register_subtitle": "Crea tu cuenta para empezar a entrenar",
+        "name_label": "Nombre Completo",
+        "email_label": "Correo Electrónico",
+        "password_label": "Contraseña",
+        "login_btn": "ENTRAR",
+        "register_btn": "CREAR CUENTA",
+        "switch_sc_signup": "¿No tienes cuenta? Regístrate",
+        "switch_to_login": "¿Ya tienes cuenta? Inicia sesión",
+        "logout": "Cerrar Sesión",
+        "profile": "Perfil"
+    },
+    "nav": {
+        "home": "Inicio",
+        "plan": "Plan",
+        "stats": "Estadísticas",
+        "admin": "Admin"
+    },
+    "dashboard": {
+        "welcome": "Bienvenido,",
+        "weight_evolution": "Evolución de {{type}}",
+        "update_metrics": "Actualizar Métricas",
+        "update_profile": "Actualizar Perfil",
+        "todays_session": "Sesión de Hoy",
+        "quick_actions": "Acciones Rápidas",
+        "week_phase": "Semana 4 • Fase de Fuerza",
+        "subtitle": "Registra tu progreso.",
+        "exercises": "Ejercicios",
+        "intensity": "Alta Intensidad",
+        "start_session": "Empezar Sesión"
+    },
+    "metrics": {
+        "modal_title": "Actualizar Métricas",
+        "manage_title": "Gestionar Métricas",
+        "add_new": "Añadir Nueva",
+        "metric_type": "Tipo de Métrica",
+        "value": "Valor",
+        "notes": "Notas",
+        "notes_placeholder": "¿Cómo te sentiste?",
+        "save": "Guardar Progreso",
+        "saving": "Guardando...",
+        "types": {
+            "weight": "Peso",
+            "sleep": "Sueño",
+            "height": "Altura",
+            "nutrition": "Nutrición"
+        }
+    },
+    "common": {
+        "coming_soon": "Próximamente"
+    },
+    "admin": {
+        "clients": "Clientes",
+        "requests": "Solicitudes",
+        "messages": "Mensajes"
+    }
+}

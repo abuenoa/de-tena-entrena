@@ -10,6 +10,7 @@ import Onboarding from './components/Onboarding';
 import ContactForm from './components/ContactForm';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AuthProvider, useAuth } from './hooks/useAuth';
+import UserProfile from './components/UserProfile';
 
 const AppContent = () => {
   const { user } = useAuth();
@@ -56,6 +57,12 @@ const AppContent = () => {
         <Route path="/onboarding" element={
           <ProtectedRoute allowedRoles={['client']}>
             <Onboarding />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/profile" element={
+          <ProtectedRoute allowedRoles={['client', 'admin']}>
+            <UserProfile />
           </ProtectedRoute>
         } />
 

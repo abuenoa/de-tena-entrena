@@ -2,45 +2,35 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Lock, Mail, User } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const LoginModal = ({ isOpen, onClose }) => {
-    const [isLogin, setIsLogin] = useState(true);
+    const { t } = useTranslation();
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
     const [error, setError] = useState('');
-    const { login, register } = useAuth();
+    const { login } = useAuth(); // Removed register
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
 
-        let success;
-        if (isLogin) {
-            success = await login(email, password);
-        } else {
-            if (!name) {
-                setError('Name is required');
-                return;
-            }
-            success = await register(email, password, name);
-        }
+        const success = await login(email, password);
 
         if (success) {
             onClose();
-            // Reset state
             setEmail('');
             setPassword('');
-            setName('');
-            setIsLogin(true);
         } else {
-            setError(isLogin ? 'Invalid credentials' : 'Registration failed');
+            setError('Invalid credentials');
         }
     };
 
-    const toggleMode = () => {
-        setIsLogin(!isLogin);
-        setError('');
+    const handleContactRedirect = () => {
+        onClose();
+        navigate('/contact');
     };
 
     return (
@@ -72,35 +62,20 @@ const LoginModal = ({ isOpen, onClose }) => {
 
                             <div className="mb-8 text-center">
                                 <h2 className="font-display text-3xl font-bold text-white">
-                                    {isLogin ? 'Access' : 'Join Us'}
+                                    {t('auth.login_title')}
                                 </h2>
                                 <p className="text-sm text-white/50">
-                                    {isLogin ? 'Enter your credentials to continue' : 'Create your account to start training'}
+                                    {t('auth.login_subtitle')}
                                 </p>
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
-                                {!isLogin && (
-                                    <div className="space-y-2">
-                                        <div className="relative">
-                                            <User className="absolute left-0 top-3 h-5 w-5 text-white/30" />
-                                            <input
-                                                type="text"
-                                                placeholder="Full Name"
-                                                value={name}
-                                                onChange={(e) => setName(e.target.value)}
-                                                className="w-full border-b border-white/10 bg-transparent py-3 pl-8 text-white placeholder-white/30 focus:border-brand-red focus:outline-none transition-colors"
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-
                                 <div className="space-y-2">
                                     <div className="relative">
                                         <Mail className="absolute left-0 top-3 h-5 w-5 text-white/30" />
                                         <input
                                             type="email"
-                                            placeholder="Email"
+                                            placeholder={t('auth.email_label')}
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
                                             className="w-full border-b border-white/10 bg-transparent py-3 pl-8 text-white placeholder-white/30 focus:border-brand-red focus:outline-none transition-colors"
@@ -113,7 +88,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                                         <Lock className="absolute left-0 top-3 h-5 w-5 text-white/30" />
                                         <input
                                             type="password"
-                                            placeholder="Password"
+                                            placeholder={t('auth.password_label')}
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
                                             className="w-full border-b border-white/10 bg-transparent py-3 pl-8 text-white placeholder-white/30 focus:border-brand-red focus:outline-none transition-colors"
@@ -129,16 +104,16 @@ const LoginModal = ({ isOpen, onClose }) => {
                                     type="submit"
                                     className="w-full rounded-full bg-white py-3 font-bold text-brand-black transition-transform hover:scale-[1.02] active:scale-[0.98]"
                                 >
-                                    {isLogin ? 'ENTER' : 'CREATE ACCOUNT'}
+                                    {t('auth.login_btn')}
                                 </button>
                             </form>
 
                             <div className="mt-6 text-center">
                                 <button
-                                    onClick={toggleMode}
+                                    onClick={handleContactRedirect}
                                     className="text-sm text-white/50 hover:text-white transition-colors"
                                 >
-                                    {isLogin ? "Don't have an account? Sign up" : "Already have an account? Login"}
+                                    {t('auth.switch_sc_signup')}
                                 </button>
                             </div>
                         </motion.div>

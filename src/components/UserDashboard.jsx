@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
-import { Play, Calendar, TrendingUp, Home, User, Settings, Dumbbell, Plus } from 'lucide-react';
+import { Play, Calendar, TrendingUp, Home, User, Settings, Dumbbell, Plus, LogOut } from 'lucide-react';
 import MetricsModal from './MetricsModal';
 import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
+import { useTranslation } from 'react-i18next';
 
 const UserDashboard = ({ onStartOnboarding }) => {
     const { user, logout } = useAuth();
+    const { t } = useTranslation();
+    const navigate = useNavigate();
     const [isMetricsOpen, setIsMetricsOpen] = useState(false);
     const [metricsData, setMetricsData] = useState([]);
+    const [activeMetric, setActiveMetric] = useState('weight');
 
     useEffect(() => {
         const fetchMetrics = async () => {
@@ -17,10 +22,15 @@ const UserDashboard = ({ onStartOnboarding }) => {
             try {
                 const q = query(collection(db, `users/${user.uid}/metrics`), orderBy('date', 'asc'));
                 const snapshot = await getDocs(q);
-                const data = snapshot.docs.map(doc => ({
-                    name: new Date(doc.data().date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }),
-                    weight: doc.data().weight
-                }));
+                const data = snapshot.docs.map(doc => {
+                    const d = doc.data();
+                    return {
+                        name: new Date(d.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }),
+                        type: d.type || 'weight',
+                        value: d.value || d.weight || 0,
+                        date: d.date
+                    };
+                });
                 setMetricsData(data);
             } catch (error) {
                 console.error("Error fetching metrics:", error);
@@ -34,23 +44,23 @@ const UserDashboard = ({ onStartOnboarding }) => {
             {/* Desktop Sidebar / Mobile Bottom Nav */}
             <nav className="fixed bottom-0 left-0 z-40 flex w-full justify-around border-t border-white/10 bg-brand-black/90 px-6 py-4 backdrop-blur-md md:top-0 md:h-screen md:w-24 md:flex-col md:justify-start md:gap-12 md:border-r md:border-t-0 md:pt-12">
                 <div className="hidden md:flex md:justify-center">
-                    <div className="h-8 w-8 rounded-full bg-brand-red"></div>
+                    {/* Placeholder removed as per user request */}
                 </div>
                 <button className="flex flex-col items-center gap-1 text-brand-red">
                     <Home size={24} />
-                    <span className="text-[10px] font-medium uppercase">Home</span>
+                    <span className="text-[10px] font-medium uppercase">{t('nav.home')}</span>
                 </button>
-                <button className="flex flex-col items-center gap-1 text-white/50 hover:text-white">
+                <button className="group flex flex-col items-center gap-1 text-white/30 cursor-not-allowed" title={t('common.coming_soon') || "Próximamente"}>
                     <Calendar size={24} />
-                    <span className="text-[10px] font-medium uppercase">Plan</span>
+                    <span className="text-[10px] font-medium uppercase">{t('nav.plan')}</span>
                 </button>
-                <button className="flex flex-col items-center gap-1 text-white/50 hover:text-white">
+                <button className="group flex flex-col items-center gap-1 text-white/30 cursor-not-allowed" title={t('common.coming_soon') || "Próximamente"}>
                     <TrendingUp size={24} />
-                    <span className="text-[10px] font-medium uppercase">Stats</span>
+                    <span className="text-[10px] font-medium uppercase">{t('nav.stats')}</span>
                 </button>
                 <button onClick={logout} className="flex flex-col items-center gap-1 text-white/50 hover:text-white md:mt-auto md:mb-8">
-                    <User size={24} />
-                    <span className="text-[10px] font-medium uppercase">Profile</span>
+                    <LogOut size={24} />
+                    <span className="text-[10px] font-medium uppercase">{t('auth.logout')}</span>
                 </button>
             </nav>
 
@@ -60,13 +70,20 @@ const UserDashboard = ({ onStartOnboarding }) => {
                 <header className="mb-8 flex items-center justify-between">
                     <div>
                         <h1 className="font-display text-3xl font-bold">
-                            Welcome back, <span className="text-brand-red">{user?.name?.split(' ')[0] || 'Athlete'}</span>
+                            {t('dashboard.welcome')} <span className="text-brand-red">{user?.name?.split(' ')[0] || 'Athlete'}</span>
                         </h1>
-                        <p className="text-white/50">Week 4 • Strength Phase</p>
+                        <p className="text-white/50">{t('dashboard.week_phase')}</p>
                     </div>
-                    <div className="h-12 w-12 overflow-hidden rounded-full border border-white/10 bg-white/5">
-                        <img src={`https://ui-avatars.com/api/?name=${user?.name}&background=D62828&color=fff`} alt="Profile" />
-                    </div>
+                    <button
+                        onClick={() => navigate('/profile')}
+                        className="h-12 w-12 overflow-hidden rounded-full border border-white/10 bg-white/5 transition-transform hover:scale-105"
+                    >
+                        {user?.photoURL ? (
+                            <img src={user.photoURL} alt="Profile" className="h-full w-full object-cover" />
+                        ) : (
+                            <img src={`https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=D62828&color=fff`} alt="Profile" />
+                        )}
+                    </button>
                 </header>
 
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -77,15 +94,18 @@ const UserDashboard = ({ onStartOnboarding }) => {
                         <div className="relative z-10 flex items-start justify-between">
                             <div>
                                 <span className="mb-2 inline-block rounded-full bg-brand-red/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-red">
-                                    Today's Session
+                                    {t('dashboard.todays_session')}
                                 </span>
                                 <h2 className="font-display text-4xl font-bold uppercase italic">Upper Body <br /> Power</h2>
                                 <div className="mt-4 flex gap-4 text-sm text-white/60">
-                                    <span className="flex items-center gap-1"><Dumbbell size={16} /> 6 Exercises</span>
-                                    <span className="flex items-center gap-1"><TrendingUp size={16} /> High Intensity</span>
+                                    <span className="flex items-center gap-1"><Dumbbell size={16} /> 6 {t('dashboard.exercises')}</span>
+                                    <span className="flex items-center gap-1"><TrendingUp size={16} /> {t('dashboard.intensity')}</span>
                                 </div>
                             </div>
-                            <button className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-red text-white shadow-lg shadow-brand-red/20 transition-transform group-hover:scale-110">
+                            <button
+                                className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-red/50 text-white/50 shadow-lg cursor-not-allowed"
+                                title={t('common.coming_soon') || "Próximamente"}
+                            >
                                 <Play fill="currentColor" className="ml-1" />
                             </button>
                         </div>
@@ -94,21 +114,21 @@ const UserDashboard = ({ onStartOnboarding }) => {
                     {/* Quick Actions / Onboarding Trigger */}
                     <div className="flex flex-col justify-between rounded-3xl border border-white/10 bg-surface p-6">
                         <div>
-                            <h3 className="font-display text-xl font-bold">Quick Actions</h3>
-                            <p className="text-sm text-white/50">Track your progress.</p>
+                            <h3 className="font-display text-xl font-bold">{t('dashboard.quick_actions')}</h3>
+                            <p className="text-sm text-white/50">{t('dashboard.subtitle')}</p>
                         </div>
                         <div className="space-y-3 mt-4">
                             <button
                                 onClick={() => setIsMetricsOpen(true)}
                                 className="w-full flex items-center justify-center gap-2 rounded-xl bg-white text-brand-black py-3 font-bold transition-colors hover:bg-white/90"
                             >
-                                <Plus size={18} /> Update Metrics
+                                <Plus size={18} /> {t('dashboard.update_metrics')}
                             </button>
                             <button
-                                onClick={onStartOnboarding}
+                                onClick={() => navigate('/profile')}
                                 className="w-full rounded-xl border border-white/10 bg-white/5 py-3 font-medium transition-colors hover:bg-white/10"
                             >
-                                Update Profile
+                                {t('dashboard.update_profile')}
                             </button>
                         </div>
                     </div>
@@ -116,14 +136,21 @@ const UserDashboard = ({ onStartOnboarding }) => {
                     {/* Progress Chart */}
                     <div className="rounded-3xl border border-white/10 bg-surface p-6 lg:col-span-3">
                         <div className="mb-6 flex items-center justify-between">
-                            <h3 className="font-display text-xl font-bold">Weight Evolution</h3>
-                            <select className="rounded-lg bg-white/5 px-3 py-1 text-sm text-white/70 outline-none">
-                                <option>All Time</option>
+                            <h3 className="font-display text-xl font-bold capitalize">{t('dashboard.weight_evolution', { type: t(`metrics.types.${activeMetric}`) })}</h3>
+                            <select
+                                value={activeMetric}
+                                onChange={(e) => setActiveMetric(e.target.value)}
+                                className="rounded-lg bg-white/5 px-3 py-1 text-sm text-white/70 outline-none [&>option]:bg-[#2A2A2A] [&>option]:text-white"
+                            >
+                                <option value="weight">{t('metrics.types.weight')}</option>
+                                <option value="sleep">{t('metrics.types.sleep')}</option>
+                                <option value="height">{t('metrics.types.height')}</option>
+                                <option value="nutrition">{t('metrics.types.nutrition')}</option>
                             </select>
                         </div>
                         <div className="h-[200px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
-                                <LineChart data={metricsData}>
+                                <LineChart data={metricsData.filter(m => m.type === activeMetric)}>
                                     <Tooltip
                                         contentStyle={{ backgroundColor: '#121212', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
                                         itemStyle={{ color: '#fff' }}
@@ -131,7 +158,7 @@ const UserDashboard = ({ onStartOnboarding }) => {
                                     <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#666' }} />
                                     <Line
                                         type="monotone"
-                                        dataKey="weight"
+                                        dataKey="value"
                                         stroke="#D62828"
                                         strokeWidth={3}
                                         dot={{ fill: '#D62828', strokeWidth: 2, r: 4, stroke: '#050505' }}

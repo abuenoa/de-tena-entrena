@@ -1,34 +1,49 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Activity, Zap, Trophy } from 'lucide-react';
+import { ArrowRight, Activity, Zap, Trophy, ChevronRight } from 'lucide-react';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 const LandingPage = () => {
+    const { t } = useTranslation();
+
     return (
-        <div className="relative w-full">
+        <div className="relative w-full overflow-hidden bg-brand-black text-white">
+            {/* Background Image with Overlay for Hero */}
+            <div
+                className="absolute top-0 left-0 w-full h-screen z-0 opacity-40"
+                style={{
+                    backgroundImage: 'url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2670&auto=format&fit=crop")',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                }}
+            />
+            <div className="absolute top-0 left-0 w-full h-screen z-0 bg-gradient-to-t from-brand-black via-brand-black/50 to-transparent" />
+
+            {/* Language Switcher Positioned */}
+            <div className="absolute top-6 left-6 z-50">
+                <LanguageSwitcher />
+            </div>
+
             {/* Hero Section */}
             <section className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden">
-                {/* Background Orb */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 2, ease: "easeOut" }}
-                    className="absolute left-1/2 top-1/2 -z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-red blur-[120px] opacity-40"
-                />
-
-                {/* Floating Glass Element */}
-                <div className="absolute inset-0 z-0 backdrop-blur-[2px]" />
-
                 {/* Giant Title */}
-                <div className="z-10 flex flex-col items-center text-center mix-blend-difference">
-                    <motion.h1
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 0.8, ease: "circOut" }}
-                        className="font-display text-6xl font-black uppercase leading-[0.9] tracking-tighter text-white md:text-9xl"
+                <div className="z-10 flex flex-col items-center text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
                     >
-                        Define Your <br />
-                        <span className="text-transparent" style={{ WebkitTextStroke: '2px white' }}>Legacy</span>
-                    </motion.h1>
+                        <h2 className="mb-4 font-display text-xl font-bold tracking-[0.2em] text-brand-red uppercase">
+                            {t('landing.title_transform')}
+                        </h2>
+                        <h1 className="mb-6 font-display text-5xl font-extrabold tracking-tighter md:text-7xl lg:text-8xl">
+                            {t('landing.title_elevate')}
+                        </h1>
+                        <p className="mx-auto mb-10 max-w-lg text-lg text-white/70">
+                            {t('landing.subtitle')}
+                        </p>
+                    </motion.div>
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -36,14 +51,13 @@ const LandingPage = () => {
                         transition={{ delay: 0.5, duration: 0.8 }}
                         className="mt-8"
                     >
-                        <a
-                            href="/contact"
-                            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-brand-red px-8 py-4 font-bold uppercase tracking-wider text-white transition-transform hover:scale-105"
+                        <button
+                            className="group flex items-center gap-3 rounded-full bg-brand-red px-8 py-4 text-lg font-bold tracking-wide transition-all hover:bg-red-700 hover:px-10"
+                            onClick={() => document.dispatchEvent(new CustomEvent('openLogin'))}
                         >
-                            <span className="relative z-10">Start Your Journey</span>
-                            <ArrowRight className="relative z-10 transition-transform group-hover:translate-x-1" />
-                            <div className="absolute inset-0 -z-0 bg-gradient-to-r from-red-600 to-red-800 opacity-0 transition-opacity group-hover:opacity-100" />
-                        </a>
+                            {t('landing.cta')}
+                            <ChevronRight className="transition-transform group-hover:translate-x-1" />
+                        </button>
                     </motion.div>
                 </div>
 
