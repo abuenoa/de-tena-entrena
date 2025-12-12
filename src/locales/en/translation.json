@@ -63,6 +63,68 @@
         "final_cta": {
             "ready": "Ready to start?",
             "button": "START TRAINING"
+        },
+        "philosophy": {
+            "title": "David De Tena Philosophy",
+            "points": [
+                "We don't seek perfection, we seek continuous evolution.",
+                "The key is not quantity but quality.",
+                "You can't look strong if you aren't truly strong."
+            ]
+        },
+        "tracking": {
+            "title": "Monitoring and Recovery",
+            "desc": "During your process, we will review your progress, rest, and mood together. I want to know how you feel, what sensations you have, how you are resting. Not just your results.",
+            "sheet_title": "Tracking Sheet",
+            "sheet_desc": "Before starting, you must fill out a form where I will collect key information about your history, goals, and current state. This form will allow me to generate your personalized tracking sheet. If you have any questions, don't hesitate to ask me.",
+            "form_btn": "ACCESS THE FORM"
+        },
+        "support": {
+            "title": "Support and Contact",
+            "desc": "I am available for you. Contact me for any questions:",
+            "details": {
+                "phone": {
+                    "label": "Phone",
+                    "value": "+34 615 328 602"
+                },
+                "email": {
+                    "label": "Email",
+                    "value": "daviddetenad@gmail.com"
+                },
+                "whatsapp": {
+                    "label": "WhatsApp",
+                    "value": "Available on flexible schedule"
+                },
+                "instagram": {
+                    "label": "Instagram",
+                    "value": "@david.detena"
+                }
+            }
+        },
+        "faq": {
+            "title": "Frequent Questions",
+            "items": [
+                {
+                    "q": "When will I receive my routine?",
+                    "a": "Once you complete the tracking form, you will receive your personalized routine on Hevy within 48 hours."
+                },
+                {
+                    "q": "How do I send my technique videos?",
+                    "a": "Directly via WhatsApp. Record exercises from a side angle that allows me to see your full posture and send them when I request or when you have doubts."
+                },
+                {
+                    "q": "What if I can't train one day?",
+                    "a": "Let me know as soon as possible. We will adjust the calendar and redistribute sessions so you don't lose progress. Flexibility is key."
+                },
+                {
+                    "q": "What happens if I have discomfort or pain?",
+                    "a": "Tell me immediately. We will adapt the exercise causing discomfort, evaluate the situation, and adjust your routine. Your health is always the priority."
+                },
+                {
+                    "q": "Can I change my follow-up schedule?",
+                    "a": "Of course. Talk to me in advance and we will adjust video calls and the plan to your new availability. Flexibility and commitment go hand in hand."
+                }
+            ]
         }
     },
     "auth": {

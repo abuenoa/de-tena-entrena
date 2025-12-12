@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { AnimatePresence } from 'framer-motion';
-import { MessageCircle, User, ClipboardList } from 'lucide-react';
+import { MessageCircle, User, ClipboardList, Dumbbell } from 'lucide-react';
 import ClientList from './admin/ClientList';
 import ContactRequestsList from './admin/ContactRequestsList';
 import ClientDetail from './admin/ClientDetail';
@@ -20,7 +20,9 @@ const AdminDashboard = () => {
             {/* Sidebar */}
             <aside className="hidden w-64 flex-col border-r border-white/10 bg-surface p-6 md:flex">
                 <div className="mb-12 flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-full bg-brand-red"></div>
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-red/10 text-brand-red">
+                        <Dumbbell size={20} />
+                    </div>
                     <span className="font-display text-xl font-bold tracking-tighter">DE TENA</span>
                 </div>
 

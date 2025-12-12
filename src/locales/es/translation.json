@@ -63,6 +63,68 @@
         "final_cta": {
             "ready": "¿Listo para empezar?",
             "button": "EMPEZAR A ENTRENAR"
+        },
+        "philosophy": {
+            "title": "Filosofía David De Tena",
+            "points": [
+                "No buscamos perfección, buscamos evolución continua.",
+                "La clave no está en la cantidad sino en la calidad.",
+                "No puedes parecer fuerte si no eres fuerte de verdad."
+            ]
+        },
+        "tracking": {
+            "title": "Seguimiento y Recuperación",
+            "desc": "Durante tu proceso, revisaremos juntos tu progreso, descanso y estado de ánimo. Me interesa saber cómo te sientes, que sensaciones tienes, como estas descansando. No solo tus resultados.",
+            "sheet_title": "Ficha de Seguimiento",
+            "sheet_desc": "Antes de comenzar, deberás rellenar un formulario donde recopilaré información clave sobre tu historial, objetivos y estado actual. Este formulario me permitirá generar tu ficha de seguimiento personalizada. Ante cualquier duda no dudes en preguntarme.",
+            "form_btn": "ACCEDER AL FORMULARIO"
+        },
+        "support": {
+            "title": "Soporte y Contacto",
+            "desc": "Estoy disponible para ti. Contacta conmigo por cualquier duda:",
+            "details": {
+                "phone": {
+                    "label": "Teléfono",
+                    "value": "+34 615 328 602"
+                },
+                "email": {
+                    "label": "Email",
+                    "value": "daviddetenad@gmail.com"
+                },
+                "whatsapp": {
+                    "label": "WhatsApp",
+                    "value": "Disponible en horario flexible"
+                },
+                "instagram": {
+                    "label": "Instagram",
+                    "value": "@david.detena"
+                }
+            }
+        },
+        "faq": {
+            "title": "Preguntas Frecuentes",
+            "items": [
+                {
+                    "q": "¿Cuándo recibiré mi rutina?",
+                    "a": "Una vez completes el formulario de seguimiento, recibirás tu rutina personalizada en Hevy en un plazo máximo de 48 horas."
+                },
+                {
+                    "q": "¿Cómo envío mis vídeos de técnica?",
+                    "a": "Directamente por WhatsApp. Graba los ejercicios desde un ángulo lateral que me permita ver tu postura completa y envíamelos cuando te lo solicite o cuando tengas dudas."
+                },
+                {
+                    "q": "¿Qué hago si no puedo entrenar un día?",
+                    "a": "Avísame lo antes posible. Ajustaremos el calendario y redistribuiremos las sesiones para que no pierdas progreso. La flexibilidad es clave."
+                },
+                {
+                    "q": "¿Qué pasa si tengo molestias o dolor?",
+                    "a": "Comunícamelo inmediatamente. Adapataremos el ejercicio que causa molestia, evaluaremos la situación y adaptaremos tu rutina. Tu salud es siempre la prioridad."
+                },
+                {
+                    "q": "¿Puedo cambiar mi horario de seguimiento?",
+                    "a": "Por supuesto. Háblame con antelación y ajustaremos las videollamadas y el plan a tu nueva disponibilidad. Flexibilidad y compromiso van de la mano."
+                }
+            ]
         }
     },
     "auth": {

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ChevronRight, CheckCircle2, Smartphone, Dumbbell, MessageCircle, Video, ListChecks } from 'lucide-react';
+import { ChevronRight, CheckCircle2, Smartphone, Dumbbell, MessageCircle, Video, ListChecks, Phone, Mail, Instagram } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -125,8 +125,7 @@ const LandingPage = () => {
                     className="flex flex-col md:flex-row gap-12 items-center"
                 >
                     <div className="flex-1 space-y-6">
-                        <span className="text-brand-red font-display tracking-wider uppercase font-bold">{t('landing.welcome.title')}</span>
-                        <h2 className="text-4xl md:text-5xl font-display font-bold">{t('landing.welcome.letter_title')}</h2>
+                        <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-red">{t('landing.welcome.title')}</h2>
                         <div className="space-y-4 text-lg text-white/70 leading-relaxed font-light">
                             <p>{t('landing.welcome.letter_p1')}</p>
                             <p>{t('landing.welcome.letter_p2')}</p>
@@ -221,6 +220,56 @@ const LandingPage = () => {
                     </div>
                 </section>
 
+                {/* Philosophy & Tracking Sections */}
+                {/* Philosophy & Tracking Sections */}
+                <motion.section
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                    className="space-y-24"
+                >
+                    {/* Philosophy */}
+                    <div className="text-center max-w-4xl mx-auto">
+                        <h2 className="text-3xl md:text-5xl font-display font-bold uppercase mb-12">{t('landing.philosophy.title')}</h2>
+                        <div className="grid md:grid-cols-3 gap-8">
+                            {t('landing.philosophy.points', { returnObjects: true })?.map((point, i) => (
+                                <motion.div
+                                    key={i}
+                                    variants={fadeInUp}
+                                    className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-red/30 transition-all"
+                                >
+                                    <h3 className="text-lg font-medium leading-relaxed text-white/90">"{point}"</h3>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Tracking */}
+                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                        <div className="space-y-6">
+                            <h2 className="text-3xl font-display font-bold uppercase">{t('landing.tracking.title')}</h2>
+                            <p className="text-lg text-white/70 leading-relaxed">
+                                {t('landing.tracking.desc')}
+                            </p>
+                        </div>
+                        <div className="p-8 rounded-3xl bg-white/5 border border-white/10">
+                            <h3 className="text-xl font-bold mb-4 flex items-center gap-3">
+                                {t('landing.tracking.sheet_title')}
+                            </h3>
+                            <p className="text-white/60 mb-6">
+                                {t('landing.tracking.sheet_desc')}
+                            </p>
+                            <button
+                                onClick={() => navigate('/contact')}
+                                className="inline-block bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-bold transition-colors w-full text-center uppercase tracking-wider"
+                            >
+                                {t('landing.tracking.form_btn')}
+                            </button>
+                        </div>
+                    </div>
+                </motion.section>
+
                 {/* Commitment Section */}
                 <motion.section
                     initial="hidden"
@@ -299,6 +348,62 @@ const LandingPage = () => {
                         {t('landing.final_cta.button')}
                         <ChevronRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
                     </button>
+                </section>
+
+                {/* Support & FAQ */}
+                <section className="space-y-24 py-12 border-t border-white/5">
+                    {/* Support */}
+                    <div className="text-center space-y-12">
+                        <div className="space-y-4">
+                            <h2 className="text-3xl font-display font-bold uppercase">{t('landing.support.title')}</h2>
+                            <p className="text-xl text-white/70">{t('landing.support.desc')}</p>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                            {[
+                                { icon: Phone, label: 'phone', link: 'tel:+34615328602' },
+                                { icon: Mail, label: 'email', link: 'mailto:daviddetenad@gmail.com' },
+                                { icon: MessageCircle, label: 'whatsapp', link: 'https://wa.me/34615328602' },
+                                { icon: Instagram, label: 'instagram', link: 'https://instagram.com/david.detena' }
+                            ].map((item, i) => (
+                                <a
+                                    key={i}
+                                    href={item.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-red/30 hover:bg-white/10 transition-all group flex flex-col items-center gap-4"
+                                >
+                                    <div className="p-4 rounded-full bg-brand-red/10 text-brand-red group-hover:bg-brand-red group-hover:text-white transition-colors">
+                                        <item.icon className="w-6 h-6" />
+                                    </div>
+                                    <div className="text-center">
+                                        <h3 className="font-bold text-white/90 mb-1">{t(`landing.support.details.${item.label}.label`)}</h3>
+                                        <p className="text-sm text-white/60 group-hover:text-white/80 transition-colors">{t(`landing.support.details.${item.label}.value`)}</p>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* FAQ */}
+                    <div className="max-w-3xl mx-auto space-y-8">
+                        <h2 className="text-3xl font-display font-bold uppercase text-center mb-12">{t('landing.faq.title')}</h2>
+                        <div className="space-y-6">
+                            {t('landing.faq.items', { returnObjects: true }).map((item, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.1 }}
+                                    className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-red/30 transition-colors"
+                                >
+                                    <h3 className="text-lg font-bold text-brand-red mb-3">{item.q}</h3>
+                                    <p className="text-white/70 leading-relaxed">{item.a}</p>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
                 </section>
 
                 {/* Footer Minimal */}
