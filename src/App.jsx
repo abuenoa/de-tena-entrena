@@ -14,6 +14,7 @@ import UserProfile from './components/UserProfile';
 
 const AppContent = () => {
   const { user } = useAuth();
+  console.log("Current App User State:", user);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (

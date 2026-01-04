@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
-import { Play, Calendar, TrendingUp, Home, User, Settings, Dumbbell, Plus, LogOut } from 'lucide-react';
+import { Play, Calendar, TrendingUp, Home, User, Settings, Dumbbell, Plus, LogOut, ChevronDown } from 'lucide-react';
 import MetricsModal from './MetricsModal';
 import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -15,6 +15,7 @@ const UserDashboard = ({ onStartOnboarding }) => {
     const [isMetricsOpen, setIsMetricsOpen] = useState(false);
     const [metricsData, setMetricsData] = useState([]);
     const [activeMetric, setActiveMetric] = useState('weight');
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     useEffect(() => {
         const fetchMetrics = async () => {
@@ -137,16 +138,32 @@ const UserDashboard = ({ onStartOnboarding }) => {
                     <div className="rounded-3xl border border-white/10 bg-surface p-6 lg:col-span-3">
                         <div className="mb-6 flex items-center justify-between">
                             <h3 className="font-display text-xl font-bold capitalize">{t('dashboard.weight_evolution', { type: t(`metrics.types.${activeMetric}`) })}</h3>
-                            <select
-                                value={activeMetric}
-                                onChange={(e) => setActiveMetric(e.target.value)}
-                                className="rounded-lg bg-white/5 px-3 py-1 text-sm text-white/70 outline-none [&>option]:bg-[#2A2A2A] [&>option]:text-white"
-                            >
-                                <option value="weight">{t('metrics.types.weight')}</option>
-                                <option value="sleep">{t('metrics.types.sleep')}</option>
-                                <option value="height">{t('metrics.types.height')}</option>
-                                <option value="nutrition">{t('metrics.types.nutrition')}</option>
-                            </select>
+                            <div className="relative">
+                                <button
+                                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                    className="flex items-center gap-2 rounded-lg bg-white/5 px-4 py-2 text-sm text-white transition-colors hover:bg-white/10"
+                                >
+                                    <span>{t(`metrics.types.${activeMetric}`)}</span>
+                                    <ChevronDown size={14} className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                                </button>
+
+                                {isDropdownOpen && (
+                                    <div className="absolute right-0 top-full mt-2 z-50 w-40 overflow-hidden rounded-xl border border-white/10 bg-[#1A1A1A] py-1 shadow-xl backdrop-blur-xl">
+                                        {['weight', 'sleep', 'height', 'nutrition'].map((type) => (
+                                            <button
+                                                key={type}
+                                                onClick={() => {
+                                                    setActiveMetric(type);
+                                                    setIsDropdownOpen(false);
+                                                }}
+                                                className={`w-full px-4 py-2 text-left text-sm transition-colors hover:bg-white/10 ${activeMetric === type ? 'text-brand-red font-medium' : 'text-white/70'}`}
+                                            >
+                                                {t(`metrics.types.${type}`)}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                         <div className="h-[200px] w-full">
                             <ResponsiveContainer width="100%" height="100%">

@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, MessageCircle, User, Calendar, TrendingUp, Plus, Edit2, Trash2 } from 'lucide-react';
+import { X, MessageCircle, User, Calendar, TrendingUp, Plus, Edit2, Trash2, ChevronDown } from 'lucide-react';
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
 import { collection, query, orderBy, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import AdminMetricsForm from './AdminMetricsForm';
 
+import { useTranslation } from 'react-i18next';
+
 const ClientDetail = ({ client, onClose }) => {
+    const { t } = useTranslation();
     const [metrics, setMetrics] = useState([]);
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [selectedMetric, setSelectedMetric] = useState(null);
     const [activeChartMetric, setActiveChartMetric] = useState('weight');
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const fetchMetrics = async () => {
         if (!client?.id) return;
@@ -96,7 +100,10 @@ const ClientDetail = ({ client, onClose }) => {
                             <p className="text-white/50">{client.email}</p>
 
                             <div className="mt-6 flex gap-4">
-                                <button className="flex items-center gap-2 rounded-full bg-brand-red px-6 py-2 font-bold text-white transition-transform hover:scale-105">
+                                <button
+                                    className="flex items-center gap-2 rounded-full bg-white/10 px-6 py-2 font-bold text-white/30 cursor-not-allowed group"
+                                    title={t('common.coming_soon') || "Próximamente"}
+                                >
                                     <MessageCircle size={18} /> Chat
                                 </button>
                             </div>
@@ -106,17 +113,33 @@ const ClientDetail = ({ client, onClose }) => {
                             {/* Metrics Chart */}
                             <div className="rounded-xl border border-white/10 bg-brand-black/50 p-4">
                                 <div className="mb-4 flex items-center justify-between">
-                                    <h4 className="text-sm font-bold uppercase tracking-wider text-white/50">{activeChartMetric} History</h4>
-                                    <select
-                                        value={activeChartMetric}
-                                        onChange={(e) => setActiveChartMetric(e.target.value)}
-                                        className="bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-xs text-white focus:outline-none"
-                                    >
-                                        <option value="weight">Weight</option>
-                                        <option value="sleep">Sleep</option>
-                                        <option value="height">Height</option>
-                                        <option value="nutrition">Nutrition</option>
-                                    </select>
+                                    <h4 className="text-sm font-bold uppercase tracking-wider text-white/50">{t(`metrics.types.${activeChartMetric}`) || activeChartMetric} History</h4>
+                                    <div className="relative">
+                                        <button
+                                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                            className="flex items-center gap-2 rounded-lg bg-white/5 px-4 py-2 text-sm text-white transition-colors hover:bg-white/10 focus:outline-none"
+                                        >
+                                            <span className="capitalize">{t(`metrics.types.${activeChartMetric}`) || activeChartMetric}</span>
+                                            <ChevronDown size={14} className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                                        </button>
+
+                                        {isDropdownOpen && (
+                                            <div className="absolute right-0 top-full mt-2 z-50 w-40 overflow-hidden rounded-xl border border-white/10 bg-[#1A1A1A] py-1 shadow-xl backdrop-blur-xl">
+                                                {['weight', 'sleep', 'height', 'nutrition'].map((type) => (
+                                                    <button
+                                                        key={type}
+                                                        onClick={() => {
+                                                            setActiveChartMetric(type);
+                                                            setIsDropdownOpen(false);
+                                                        }}
+                                                        className={`w-full px-4 py-2 text-left text-sm transition-colors hover:bg-white/10 ${activeChartMetric === type ? 'text-brand-red font-medium' : 'text-white/70'}`}
+                                                    >
+                                                        {t(`metrics.types.${type}`)}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                                 <div className="h-[150px] w-full">
                                     {chartData.length > 0 ? (
@@ -163,11 +186,11 @@ const ClientDetail = ({ client, onClose }) => {
                                                 <div className="flex items-center justify-between">
                                                     <div className="flex items-center gap-3">
                                                         <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${metric.type === 'weight' ? 'bg-blue-500/20 text-blue-500' :
-                                                                metric.type === 'sleep' ? 'bg-purple-500/20 text-purple-500' :
-                                                                    metric.type === 'nutrition' ? 'bg-green-500/20 text-green-500' :
-                                                                        'bg-gray-500/20 text-gray-500'
+                                                            metric.type === 'sleep' ? 'bg-purple-500/20 text-purple-500' :
+                                                                metric.type === 'nutrition' ? 'bg-green-500/20 text-green-500' :
+                                                                    'bg-gray-500/20 text-gray-500'
                                                             }`}>
-                                                            {metric.type}
+                                                            {t(`metrics.types.${metric.type}`) || metric.type}
                                                         </span>
                                                         <span className="text-sm font-bold">{metric.value}</span>
                                                         <span className="text-xs text-white/30">{metric.formattedDate}</span>

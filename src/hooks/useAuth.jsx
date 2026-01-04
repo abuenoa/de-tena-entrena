@@ -26,7 +26,8 @@ export const AuthProvider = ({ children }) => {
                         setUser({
                             uid: firebaseUser.uid,
                             email: firebaseUser.email,
-                            ...userDoc.data()
+                            ...userDoc.data(),
+                            role: userDoc.data().role || 'client'
                         });
                     } else {
                         // Fallback if no firestore doc exists yet
@@ -39,8 +40,15 @@ export const AuthProvider = ({ children }) => {
                     }
                 } catch (error) {
                     console.error("Error fetching user data:", error);
+                    // Failsafe: Set user even if Firestore fails
+                    setUser({
+                        uid: firebaseUser.uid,
+                        email: firebaseUser.email,
+                        role: 'client'
+                    });
                 }
             } else {
+                console.log("No firebase user found in onAuthStateChanged");
                 setUser(null);
             }
             setLoading(false);
