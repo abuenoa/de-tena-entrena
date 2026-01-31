@@ -65,13 +65,14 @@
             "button": "EMPEZAR A ENTRENAR"
         },
         "philosophy": {
-            "title": "Filosofía David De Tena - Método Minimalista",
+            "title_main": "Filosofía David De Tena",
+            "title_sub": "Método Minimalista",
             "points": [
-                "Una cadena es tan fuerte como el eslabón más débil.",
-                "Sostenibilidad > Perfección.",
-                "Para parecer fuerte hay que estar fuerte.",
-                "Calidad > Cantidad.",
-                "Dolor no es solo daño, es una señal de debilidad."
+                "Una cadena es tan fuerte como el eslabón más débil",
+                "Sostenibilidad > Perfección",
+                "Para parecer fuerte hay que estar fuerte",
+                "Calidad > Cantidad",
+                "Dolor no es solo daño, es una señal de debilidad"
             ]
         },
         "tracking": {

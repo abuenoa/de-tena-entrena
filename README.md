@@ -1,47 +1,41 @@
-# De Tena Entrena - Personal Trainer PWA
+# David de Tena - Personal Training Management
 
-Professional Progressive Web App (PWA) designed for high-end personal training services. This application connects clients with their trainer, providing a seamless experience for workout tracking, onboarding, and communication.
+A comprehensive platform for personal training management, featuring client and admin dashboards, workout tracking, and progress monitoring.
 
-## 🚀 Key Features
+## 🚀 Features
 
-- **Public Landing Page**: Modern, responsive landing page to showcase services.
-- **Authentication**: Secure login system with Role-Based Access Control (RBAC) via Firebase.
-  - **Admin Dashboard**: Dedicated area for the trainer to manage clients and content.
-  - **Client Dashboard**: Personalized area for clients to view their plans and progress.
-- **Onboarding Flow**: Interactive wizard for collecting new client data.
-- **Internationalization**: Full support for English and Spanish (`i18next`).
-- **Responsive Design**: Mobile-first approach using Tailwind CSS.
-- **Animations**: Smooth transitions and effects using Framer Motion.
+*   **Landing Page**: Modern, responsive landing page with services implementation.
+*   **Authentication**: Secure login system with role-based access control (Admin vs Client).
+*   **Dashboards**:
+    *   **Admin Dashboard**: Manage clients, assign workouts, and view overall statistics.
+    *   **User Dashboard**: View assigned workouts, track progress, and update personal profile.
+*   **Internationalization**: Multi-language support (English/Spanish) using `i18next`.
+*   **Progress Tracking**: Visual charts for tracking workout history and body metrics.
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
-- **Core**: React 19, Vite
-- **Styling**: Tailwind CSS, PostCSS, clsx, tailwind-merge
-- **Routing**: React Router DOM 7
-- **State & Logic**: Custom Hooks, Context API
-- **Backend / Auth**: Firebase (Authentication, Firestore)
-- **Animation**: Framer Motion
-- **Charts**: Recharts
-- **Icons**: Lucide React
-- **I18n**: i18next, react-i18next
+*   **Frontend Framework**: [React](https://react.dev/) with [Vite](https://vitejs.dev/)
+*   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+*   **Routing**: [React Router](https://reactrouter.com/)
+*   **State Management & Auth**: [Firebase](https://firebase.google.com/) (Auth, Firestore, Storage)
+*   **Icons**: [Lucide React](https://lucide.dev/)
+*   **Charts**: [Recharts](https://recharts.org/)
+*   **Animations**: [Framer Motion](https://www.framer.com/motion/)
 
 ## 📂 Project Structure
 
-```text
+```bash
 src/
 ├── assets/         # Static assets (images, fonts)
-├── components/     # Reusable UI components and specific page views
-│   ├── AdminDashboard.jsx
-│   ├── UserDashboard.jsx
-│   ├── LandingPage.jsx
-│   ├── Onboarding.jsx
+├── components/     # Reusable UI components
+│   ├── admin/      # Admin-specific components
+│   ├── Layout.jsx  # Main application layout
 │   └── ...
-├── hooks/          # Custom hooks (e.g., useAuth)
-├── locales/        # Translation files (en/es)
+├── hooks/          # Custom React hooks (useAuth, etc.)
+├── locales/        # i18n translation files
 ├── utils/          # Helper functions
-├── App.jsx         # Main application routing and layout
-├── firebase.js     # Firebase configuration
-├── i18n.js         # Internationalization setup
+├── App.jsx         # Main application component & Routing
+├── firebase.js     # Firebase configuration & initialization
 └── main.jsx        # Entry point
 ```
 
@@ -49,52 +43,51 @@ src/
 
 ### Prerequisites
 
-- Node.js (LTS version recommended)
-- npm (comes with Node.js)
+*   Node.js (v18 or higher recommended)
+*   npm
 
 ### Installation
 
 1.  Clone the repository:
     ```bash
     git clone <repository-url>
-    ```
-2.  Navigate to the project directory:
-    ```bash
     cd de-tena-entrena
     ```
-3.  Install dependencies:
+
+2.  Install dependencies:
     ```bash
     npm install
     ```
 
-### Development
+### Running Locally
 
-To start the development server with HMR (Hot Module Replacement):
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+The application will be available at `http://localhost:5173`.
 
 ### Building for Production
 
-To build the application for deployment:
+Build the application for production deployment:
 
 ```bash
 npm run build
 ```
 
-To preview the production build locally:
+The build artifacts will be stored in the `dist/` directory.
 
-```bash
-npm run preview
-```
+## ⚙️ Configuration
 
-### Linting
+**Note**: Currently, Firebase configuration is hardcoded in `src/firebase.js`. 
+Ensure you have the correct Firebase project credentials if you need to modify the backend connection.
 
-To run the linter and check for code quality issues:
+## 🤝 Contributing
 
-```bash
-npm run lint
-```
+1.  Fork the repository
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request

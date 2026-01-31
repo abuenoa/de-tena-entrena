@@ -65,11 +65,14 @@
             "button": "START TRAINING"
         },
         "philosophy": {
-            "title": "David De Tena Philosophy",
+            "title_main": "David De Tena Philosophy",
+            "title_sub": "Minimalist Method",
             "points": [
-                "We don't seek perfection, we seek continuous evolution.",
-                "The key is not quantity but quality.",
-                "You can't look strong if you aren't truly strong."
+                "A chain is only as strong as its weakest link",
+                "Sustainability > Perfection",
+                "To look strong you have to be strong",
+                "Quality > Quantity",
+                "Pain is not just damage, it is a sign of weakness"
             ]
         },
         "tracking": {
