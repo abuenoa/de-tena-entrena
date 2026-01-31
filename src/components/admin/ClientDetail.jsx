@@ -83,7 +83,7 @@ const ClientDetail = ({ client, onClose }) => {
                 animate={{ x: 0 }}
                 exit={{ x: '100%' }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="fixed right-0 top-0 z-50 h-full w-full max-w-md border-l border-white/10 bg-surface shadow-2xl"
+                className="fixed right-0 top-0 z-50 h-full w-full max-w-[95vw] border-l border-white/10 bg-surface shadow-2xl"
             >
                 <div className="flex h-full flex-col">
                     <div className="flex items-center justify-between border-b border-white/10 p-6">
