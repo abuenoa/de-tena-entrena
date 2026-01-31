@@ -91,3 +91,16 @@ Ensure you have the correct Firebase project credentials if you need to modify t
 3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4.  Push to the branch (`git push origin feature/AmazingFeature`)
 5.  Open a Pull Request
+
+## 🚀 Deployment
+
+The application is hosted on Firebase.
+
+1.  **Build the application**:
+    ```bash
+    npm run build
+    ```
+2.  **Deploy to Firebase Hosting**:
+    ```bash
+    firebase deploy --only hosting
+    ```
