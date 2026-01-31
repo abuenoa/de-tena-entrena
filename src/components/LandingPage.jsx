@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ChevronRight, CheckCircle2, Smartphone, Dumbbell, MessageCircle, Video, ListChecks, Phone, Mail, Instagram } from 'lucide-react';
+import { ChevronRight, CheckCircle2, Smartphone, Dumbbell, MessageCircle, Video, ListChecks, Phone, Mail, Instagram, ChevronDown } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -88,6 +88,7 @@ const LandingPage = () => {
                 </div>
 
                 {/* Scroll Indicator */}
+                {/* Scroll Indicator */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -95,7 +96,7 @@ const LandingPage = () => {
                     className="absolute bottom-10 flex flex-col items-center gap-2"
                 >
                     <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/50">Scroll to Explore</span>
-                    <div className="h-12 w-[1px] bg-gradient-to-b from-white/0 via-white/50 to-white/0" />
+                    <ChevronDown className="w-6 h-6 text-white/50 animate-bounce" />
                 </motion.div>
             </section>
 
@@ -115,6 +116,29 @@ const LandingPage = () => {
 
             {/* Content Container */}
             <div className="relative z-10 mx-auto max-w-5xl px-6 py-24 space-y-32">
+
+
+                {/* Philosophy Section - Moved to top */}
+                <motion.section
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                    className="text-center max-w-4xl mx-auto"
+                >
+                    <h2 className="text-3xl md:text-5xl font-display font-bold uppercase mb-12">{t('landing.philosophy.title')}</h2>
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {t('landing.philosophy.points', { returnObjects: true })?.map((point, i) => (
+                            <motion.div
+                                key={i}
+                                variants={fadeInUp}
+                                className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-red/30 transition-all"
+                            >
+                                <h3 className="text-lg font-medium leading-relaxed text-white/90">"{point}"</h3>
+                            </motion.div>
+                        ))}
+                    </div>
+                </motion.section>
 
                 {/* Welcome Section */}
                 <motion.section
@@ -229,22 +253,6 @@ const LandingPage = () => {
                     variants={fadeInUp}
                     className="space-y-24"
                 >
-                    {/* Philosophy */}
-                    <div className="text-center max-w-4xl mx-auto">
-                        <h2 className="text-3xl md:text-5xl font-display font-bold uppercase mb-12">{t('landing.philosophy.title')}</h2>
-                        <div className="grid md:grid-cols-3 gap-8">
-                            {t('landing.philosophy.points', { returnObjects: true })?.map((point, i) => (
-                                <motion.div
-                                    key={i}
-                                    variants={fadeInUp}
-                                    className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-red/30 transition-all"
-                                >
-                                    <h3 className="text-lg font-medium leading-relaxed text-white/90">"{point}"</h3>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-
                     {/* Tracking */}
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div className="space-y-6">
@@ -361,7 +369,6 @@ const LandingPage = () => {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
                             {[
-                                { icon: Phone, label: 'phone', link: 'tel:+34615328602' },
                                 { icon: Mail, label: 'email', link: 'mailto:daviddetenad@gmail.com' },
                                 { icon: MessageCircle, label: 'whatsapp', link: 'https://wa.me/34615328602' },
                                 { icon: Instagram, label: 'instagram', link: 'https://instagram.com/david.detena' }

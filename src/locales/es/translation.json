@@ -8,7 +8,7 @@
             "title": "Bienvenido/a",
             "subtitle": "Empieza el viaje hacia tu mejor versión.",
             "letter_title": "Carta de Bienvenida",
-            "letter_p1": "Hola, Gracias por confiar en mí para acompañarte en este proceso. Quiero que sepas que esto no es solo un programa de entrenamiento más. Es el inicio de una transformación real, basada en compromiso, honestidad y trabajo constante.",
+            "letter_p1": "Hola, Quiero que sepas que esto no es solo un programa de entrenamiento más. Es el inicio de una transformación real, basada en compromiso, honestidad y trabajo constante.",
             "letter_p2": "Mi objetivo no es solo que consigas resultados visibles, sino que disfrutes cada paso del camino. Quiero que aprendas, que te sorprendas con lo que eres capaz de lograr y que construyas una nueva mentalidad hacia el entrenamiento y tu salud.",
             "letter_p3": "Este programa combina los principios que realmente funcionan con una aplicación práctica adaptada a ti. Lo importante es hacer bien lo esencial, de forma constante y con criterio.",
             "letter_p4": "Vamos a trabajar juntos, y quiero que sepas que estaré contigo en cada duda, en cada avance y en cada dificultad. Mi compromiso es total.",
@@ -50,7 +50,7 @@
             "list": [
                 "Ser honesto con mis sensaciones y feedback",
                 "Enviar mis vídeos cuando me lo pidan",
-                "Comprometerme al menos 8 semanas",
+                "Comprometerme al menos 8 semanas de seguimiento continuo",
                 "Mantener comunicación activa",
                 "Respetar los días de descanso",
                 "Avisar con antelación si hay cambios"
@@ -65,19 +65,21 @@
             "button": "EMPEZAR A ENTRENAR"
         },
         "philosophy": {
-            "title": "Filosofía David De Tena",
+            "title": "Filosofía David De Tena - Método Minimalista",
             "points": [
-                "No buscamos perfección, buscamos evolución continua.",
-                "La clave no está en la cantidad sino en la calidad.",
-                "No puedes parecer fuerte si no eres fuerte de verdad."
+                "Una cadena es tan fuerte como el eslabón más débil.",
+                "Sostenibilidad > Perfección.",
+                "Para parecer fuerte hay que estar fuerte.",
+                "Calidad > Cantidad.",
+                "Dolor no es solo daño, es una señal de debilidad."
             ]
         },
         "tracking": {
-            "title": "Seguimiento y Recuperación",
-            "desc": "Durante tu proceso, revisaremos juntos tu progreso, descanso y estado de ánimo. Me interesa saber cómo te sientes, que sensaciones tienes, como estas descansando. No solo tus resultados.",
-            "sheet_title": "Ficha de Seguimiento",
-            "sheet_desc": "Antes de comenzar, deberás rellenar un formulario donde recopilaré información clave sobre tu historial, objetivos y estado actual. Este formulario me permitirá generar tu ficha de seguimiento personalizada. Ante cualquier duda no dudes en preguntarme.",
-            "form_btn": "ACCEDER AL FORMULARIO"
+            "title": "Hábitos y Holística",
+            "desc": "Esto no es simplemente un programa de entrenamiento. El programa se centra en la adquisición de hábitos: entrenamiento, descanso, nutrición y actividad diaria. El entrenamiento es importante, pero incompleto sin los demás.",
+            "sheet_title": "Enfoque 360",
+            "sheet_desc": "Trabajaremos en la integración de todos estos pilares para asegurar resultados sostenibles y una mejora real en tu calidad de vida.",
+            "form_btn": "EMPEZAR EL CAMBIO"
         },
         "support": {
             "title": "Soporte y Contacto",
