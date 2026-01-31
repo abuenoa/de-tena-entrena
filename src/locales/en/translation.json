@@ -180,8 +180,22 @@
             "weight": "Weight",
             "sleep": "Sleep",
             "height": "Height",
-            "nutrition": "Nutrition"
-        }
+            "nutrition": "Nutrition",
+            "average": "Average",
+            "training": "Training",
+            "rest": "Rest",
+            "neat": "NEAT/Activity"
+        },
+        "score": "Score (1-5)",
+        "add_checkin": "New Entry",
+        "checkin_success": "Entry saved successfully",
+        "main_notes": "Main Notes",
+        "detailed_history": "Detailed History",
+        "history_desc": "Daily check-ins log",
+        "progress_history": "Progress History",
+        "progress_desc": "Evolution of scores over time",
+        "edit_blueprint": "Edit Main Notes",
+        "blueprint_desc": "These notes serve as the baseline for new daily entries."
     },
     "common": {
         "coming_soon": "Coming Soon"
@@ -214,7 +228,7 @@
             "goal": "*Goal:* {{goal}}",
             "injuries": "*Injuries:* {{injuries}}",
             "location": "*Location:* {{location}}",
-            "closing": "Waiting for your response! 💪",
+            "closing": "Waiting for your response!",
             "none": "None"
         }
     },
