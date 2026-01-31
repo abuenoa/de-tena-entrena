@@ -1,44 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
-import { Play, Calendar, TrendingUp, Home, User, Settings, Dumbbell, Plus, LogOut, ChevronDown } from 'lucide-react';
-import MetricsModal from './MetricsModal';
-import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
+import { Home, Calendar, TrendingUp, LogOut } from 'lucide-react';
+import MetricsDashboard from './shared/MetricsDashboard';
 import { useTranslation } from 'react-i18next';
 
-const UserDashboard = ({ onStartOnboarding }) => {
+const UserDashboard = () => {
     const { user, logout } = useAuth();
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const [isMetricsOpen, setIsMetricsOpen] = useState(false);
-    const [metricsData, setMetricsData] = useState([]);
-    const [activeMetric, setActiveMetric] = useState('weight');
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    useEffect(() => {
-        const fetchMetrics = async () => {
-            if (!user?.uid) return;
-            try {
-                const q = query(collection(db, `users/${user.uid}/metrics`), orderBy('date', 'asc'));
-                const snapshot = await getDocs(q);
-                const data = snapshot.docs.map(doc => {
-                    const d = doc.data();
-                    return {
-                        name: new Date(d.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }),
-                        type: d.type || 'weight',
-                        value: d.value || d.weight || 0,
-                        date: d.date
-                    };
-                });
-                setMetricsData(data);
-            } catch (error) {
-                console.error("Error fetching metrics:", error);
-            }
-        };
-        fetchMetrics();
-    }, [user, isMetricsOpen]); // Re-fetch when modal closes
+    // Prepare client object for MetricsDashboard
+    // user.uid from auth maps to client.id in Firestore
+    const clientUser = user ? { ...user, id: user.uid } : null;
 
     return (
         <div className="flex min-h-screen w-full flex-col bg-brand-black pb-24 text-white md:pl-24 md:pb-0">
@@ -71,7 +45,7 @@ const UserDashboard = ({ onStartOnboarding }) => {
                 <header className="mb-8 flex items-center justify-between">
                     <div>
                         <h1 className="font-display text-3xl font-bold">
-                            {t('dashboard.welcome')} <span className="text-brand-red">{user?.name?.split(' ')[0] || 'Athlete'}</span>
+                            {t('dashboard.welcome')} <span className="text-brand-red">{user?.displayName?.split(' ')[0] || user?.name?.split(' ')[0] || 'Athlete'}</span>
                         </h1>
                         <p className="text-white/50">{t('dashboard.week_phase')}</p>
                     </div>
@@ -82,113 +56,14 @@ const UserDashboard = ({ onStartOnboarding }) => {
                         {user?.photoURL ? (
                             <img src={user.photoURL} alt="Profile" className="h-full w-full object-cover" />
                         ) : (
-                            <img src={`https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=D62828&color=fff`} alt="Profile" />
+                            <img src={`https://ui-avatars.com/api/?name=${user?.displayName || user?.name || 'User'}&background=D62828&color=fff`} alt="Profile" />
                         )}
                     </button>
                 </header>
 
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {/* Today's Workout Card */}
-                    <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-surface p-6 transition-all hover:border-brand-red/50 lg:col-span-2">
-                        <div className="absolute right-0 top-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-brand-red/10 blur-[80px]"></div>
-
-                        <div className="relative z-10 flex items-start justify-between">
-                            <div>
-                                <span className="mb-2 inline-block rounded-full bg-brand-red/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-red">
-                                    {t('dashboard.todays_session')}
-                                </span>
-                                <h2 className="font-display text-4xl font-bold uppercase italic">Upper Body <br /> Power</h2>
-                                <div className="mt-4 flex gap-4 text-sm text-white/60">
-                                    <span className="flex items-center gap-1"><Dumbbell size={16} /> 6 {t('dashboard.exercises')}</span>
-                                    <span className="flex items-center gap-1"><TrendingUp size={16} /> {t('dashboard.intensity')}</span>
-                                </div>
-                            </div>
-                            <button
-                                className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-red/50 text-white/50 shadow-lg cursor-not-allowed"
-                                title={t('common.coming_soon') || "Próximamente"}
-                            >
-                                <Play fill="currentColor" className="ml-1" />
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Quick Actions / Onboarding Trigger */}
-                    <div className="flex flex-col justify-between rounded-3xl border border-white/10 bg-surface p-6">
-                        <div>
-                            <h3 className="font-display text-xl font-bold">{t('dashboard.quick_actions')}</h3>
-                            <p className="text-sm text-white/50">{t('dashboard.subtitle')}</p>
-                        </div>
-                        <div className="space-y-3 mt-4">
-                            <button
-                                onClick={() => setIsMetricsOpen(true)}
-                                className="w-full flex items-center justify-center gap-2 rounded-xl bg-white text-brand-black py-3 font-bold transition-colors hover:bg-white/90"
-                            >
-                                <Plus size={18} /> {t('dashboard.update_metrics')}
-                            </button>
-                            <button
-                                onClick={() => navigate('/profile')}
-                                className="w-full rounded-xl border border-white/10 bg-white/5 py-3 font-medium transition-colors hover:bg-white/10"
-                            >
-                                {t('dashboard.update_profile')}
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Progress Chart */}
-                    <div className="rounded-3xl border border-white/10 bg-surface p-6 lg:col-span-3">
-                        <div className="mb-6 flex items-center justify-between">
-                            <h3 className="font-display text-xl font-bold capitalize">{t('dashboard.weight_evolution', { type: t(`metrics.types.${activeMetric}`) })}</h3>
-                            <div className="relative">
-                                <button
-                                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                    className="flex items-center gap-2 rounded-lg bg-white/5 px-4 py-2 text-sm text-white transition-colors hover:bg-white/10"
-                                >
-                                    <span>{t(`metrics.types.${activeMetric}`)}</span>
-                                    <ChevronDown size={14} className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-                                </button>
-
-                                {isDropdownOpen && (
-                                    <div className="absolute right-0 top-full mt-2 z-50 w-40 overflow-hidden rounded-xl border border-white/10 bg-[#1A1A1A] py-1 shadow-xl backdrop-blur-xl">
-                                        {['weight', 'sleep', 'height', 'nutrition'].map((type) => (
-                                            <button
-                                                key={type}
-                                                onClick={() => {
-                                                    setActiveMetric(type);
-                                                    setIsDropdownOpen(false);
-                                                }}
-                                                className={`w-full px-4 py-2 text-left text-sm transition-colors hover:bg-white/10 ${activeMetric === type ? 'text-brand-red font-medium' : 'text-white/70'}`}
-                                            >
-                                                {t(`metrics.types.${type}`)}
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                        <div className="h-[200px] w-full">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <LineChart data={metricsData.filter(m => m.type === activeMetric)}>
-                                    <Tooltip
-                                        contentStyle={{ backgroundColor: '#121212', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
-                                        itemStyle={{ color: '#fff' }}
-                                    />
-                                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#666' }} />
-                                    <Line
-                                        type="monotone"
-                                        dataKey="value"
-                                        stroke="#D62828"
-                                        strokeWidth={3}
-                                        dot={{ fill: '#D62828', strokeWidth: 2, r: 4, stroke: '#050505' }}
-                                        activeDot={{ r: 6, fill: '#fff' }}
-                                    />
-                                </LineChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </div>
-                </div>
+                {/* Unified Metrics Dashboard */}
+                {clientUser && <MetricsDashboard client={clientUser} />}
             </main>
-
-            <MetricsModal isOpen={isMetricsOpen} onClose={() => setIsMetricsOpen(false)} />
         </div>
     );
 };
