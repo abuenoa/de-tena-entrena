@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ChevronRight, CheckCircle2, Smartphone, Dumbbell, MessageCircle, Video, ListChecks, Phone, Mail, Instagram } from 'lucide-react';
+import { ChevronRight, CheckCircle2, Smartphone, Dumbbell, MessageCircle, Video, ListChecks, Phone, Mail, Instagram, ChevronDown } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -88,6 +88,7 @@ const LandingPage = () => {
                 </div>
 
                 {/* Scroll Indicator */}
+                {/* Scroll Indicator */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -95,7 +96,7 @@ const LandingPage = () => {
                     className="absolute bottom-10 flex flex-col items-center gap-2"
                 >
                     <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/50">Scroll to Explore</span>
-                    <div className="h-12 w-[1px] bg-gradient-to-b from-white/0 via-white/50 to-white/0" />
+                    <ChevronDown className="w-6 h-6 text-white/50 animate-bounce" />
                 </motion.div>
             </section>
 
@@ -115,6 +116,33 @@ const LandingPage = () => {
 
             {/* Content Container */}
             <div className="relative z-10 mx-auto max-w-5xl px-6 py-24 space-y-32">
+
+
+                {/* Philosophy Section - Moved to top */}
+                <motion.section
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                    className="text-center max-w-5xl mx-auto"
+                >
+                    <h2 className="text-3xl md:text-5xl font-display font-bold uppercase mb-12">
+                        {t('landing.philosophy.title_main')}
+                        <br />
+                        {t('landing.philosophy.title_sub')}
+                    </h2>
+                    <div className="flex flex-wrap justify-center gap-8">
+                        {t('landing.philosophy.points', { returnObjects: true })?.map((point, i) => (
+                            <motion.div
+                                key={i}
+                                variants={fadeInUp}
+                                className="group p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-red/30 hover:bg-brand-red transition-all duration-300 flex items-center justify-center min-h-[140px] w-full md:w-[30%] min-w-[280px]"
+                            >
+                                <h3 className="text-lg font-medium leading-relaxed text-white/90 group-hover:text-white transition-colors">{point}</h3>
+                            </motion.div>
+                        ))}
+                    </div>
+                </motion.section>
 
                 {/* Welcome Section */}
                 <motion.section
@@ -210,17 +238,16 @@ const LandingPage = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.1 }}
-                                className="p-8 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.05] transition-colors"
+                                className="group p-8 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-brand-red transition-colors duration-300"
                             >
-                                <item.icon className="w-10 h-10 text-brand-red mb-4" />
+                                <item.icon className="w-10 h-10 text-brand-red mb-4 group-hover:text-white transition-colors" />
                                 <h3 className="text-xl font-bold mb-2">{t(`landing.workflow.${item.title}`)}</h3>
-                                <p className="text-white/60 text-sm leading-relaxed">{t(`landing.workflow.${item.desc}`)}</p>
+                                <p className="text-white/60 text-sm leading-relaxed group-hover:text-white transition-colors">{t(`landing.workflow.${item.desc}`)}</p>
                             </motion.div>
                         ))}
                     </div>
                 </section>
 
-                {/* Philosophy & Tracking Sections */}
                 {/* Philosophy & Tracking Sections */}
                 <motion.section
                     initial="hidden"
@@ -229,22 +256,6 @@ const LandingPage = () => {
                     variants={fadeInUp}
                     className="space-y-24"
                 >
-                    {/* Philosophy */}
-                    <div className="text-center max-w-4xl mx-auto">
-                        <h2 className="text-3xl md:text-5xl font-display font-bold uppercase mb-12">{t('landing.philosophy.title')}</h2>
-                        <div className="grid md:grid-cols-3 gap-8">
-                            {t('landing.philosophy.points', { returnObjects: true })?.map((point, i) => (
-                                <motion.div
-                                    key={i}
-                                    variants={fadeInUp}
-                                    className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-red/30 transition-all"
-                                >
-                                    <h3 className="text-lg font-medium leading-relaxed text-white/90">"{point}"</h3>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-
                     {/* Tracking */}
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div className="space-y-6">
@@ -262,7 +273,7 @@ const LandingPage = () => {
                             </p>
                             <button
                                 onClick={() => navigate('/contact')}
-                                className="inline-block bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-bold transition-colors w-full text-center uppercase tracking-wider"
+                                className="inline-block bg-white/10 hover:bg-brand-red text-white px-6 py-3 rounded-xl font-bold transition-colors w-full text-center uppercase tracking-wider duration-300"
                             >
                                 {t('landing.tracking.form_btn')}
                             </button>
@@ -359,9 +370,8 @@ const LandingPage = () => {
                             <p className="text-xl text-white/70">{t('landing.support.desc')}</p>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                        <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
                             {[
-                                { icon: Phone, label: 'phone', link: 'tel:+34615328602' },
                                 { icon: Mail, label: 'email', link: 'mailto:daviddetenad@gmail.com' },
                                 { icon: MessageCircle, label: 'whatsapp', link: 'https://wa.me/34615328602' },
                                 { icon: Instagram, label: 'instagram', link: 'https://instagram.com/david.detena' }
@@ -371,7 +381,7 @@ const LandingPage = () => {
                                     href={item.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-red/30 hover:bg-white/10 transition-all group flex flex-col items-center gap-4"
+                                    className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-red/30 hover:bg-brand-red transition-all duration-300 group flex flex-col items-center gap-4 w-full sm:w-64 lg:w-72"
                                 >
                                     <div className="p-4 rounded-full bg-brand-red/10 text-brand-red group-hover:bg-brand-red group-hover:text-white transition-colors">
                                         <item.icon className="w-6 h-6" />
@@ -396,10 +406,10 @@ const LandingPage = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.1 }}
-                                    className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-red/30 transition-colors"
+                                    className="group p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-red/30 hover:bg-brand-red transition-colors duration-300"
                                 >
-                                    <h3 className="text-lg font-bold text-brand-red mb-3">{item.q}</h3>
-                                    <p className="text-white/70 leading-relaxed">{item.a}</p>
+                                    <h3 className="text-lg font-bold text-brand-red mb-3 group-hover:text-white transition-colors">{item.q}</h3>
+                                    <p className="text-white/70 leading-relaxed group-hover:text-white transition-colors">{item.a}</p>
                                 </motion.div>
                             ))}
                         </div>
