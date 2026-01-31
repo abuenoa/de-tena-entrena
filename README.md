@@ -1,16 +1,100 @@
-# React + Vite
+# De Tena Entrena - Personal Trainer PWA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Professional Progressive Web App (PWA) designed for high-end personal training services. This application connects clients with their trainer, providing a seamless experience for workout tracking, onboarding, and communication.
 
-Currently, two official plugins are available:
+## 🚀 Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Public Landing Page**: Modern, responsive landing page to showcase services.
+- **Authentication**: Secure login system with Role-Based Access Control (RBAC) via Firebase.
+  - **Admin Dashboard**: Dedicated area for the trainer to manage clients and content.
+  - **Client Dashboard**: Personalized area for clients to view their plans and progress.
+- **Onboarding Flow**: Interactive wizard for collecting new client data.
+- **Internationalization**: Full support for English and Spanish (`i18next`).
+- **Responsive Design**: Mobile-first approach using Tailwind CSS.
+- **Animations**: Smooth transitions and effects using Framer Motion.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Core**: React 19, Vite
+- **Styling**: Tailwind CSS, PostCSS, clsx, tailwind-merge
+- **Routing**: React Router DOM 7
+- **State & Logic**: Custom Hooks, Context API
+- **Backend / Auth**: Firebase (Authentication, Firestore)
+- **Animation**: Framer Motion
+- **Charts**: Recharts
+- **Icons**: Lucide React
+- **I18n**: i18next, react-i18next
 
-## Expanding the ESLint configuration
+## 📂 Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```text
+src/
+├── assets/         # Static assets (images, fonts)
+├── components/     # Reusable UI components and specific page views
+│   ├── AdminDashboard.jsx
+│   ├── UserDashboard.jsx
+│   ├── LandingPage.jsx
+│   ├── Onboarding.jsx
+│   └── ...
+├── hooks/          # Custom hooks (e.g., useAuth)
+├── locales/        # Translation files (en/es)
+├── utils/          # Helper functions
+├── App.jsx         # Main application routing and layout
+├── firebase.js     # Firebase configuration
+├── i18n.js         # Internationalization setup
+└── main.jsx        # Entry point
+```
+
+## ⚡ Getting Started
+
+### Prerequisites
+
+- Node.js (LTS version recommended)
+- npm (comes with Node.js)
+
+### Installation
+
+1.  Clone the repository:
+    ```bash
+    git clone <repository-url>
+    ```
+2.  Navigate to the project directory:
+    ```bash
+    cd de-tena-entrena
+    ```
+3.  Install dependencies:
+    ```bash
+    npm install
+    ```
+
+### Development
+
+To start the development server with HMR (Hot Module Replacement):
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### Building for Production
+
+To build the application for deployment:
+
+```bash
+npm run build
+```
+
+To preview the production build locally:
+
+```bash
+npm run preview
+```
+
+### Linting
+
+To run the linter and check for code quality issues:
+
+```bash
+npm run lint
+```
