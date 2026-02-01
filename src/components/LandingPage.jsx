@@ -4,14 +4,11 @@ import { ChevronRight, CheckCircle2, Smartphone, Dumbbell, MessageCircle, Video,
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import welcomeImage from '../../backup_legacy/assets/CamaronBiceps.jpg';
+// Image moved to public/CamaronBiceps.jpg
 
 const LandingPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const scrollRef = useRef(null);
-    const { scrollYProgress } = useScroll({ target: scrollRef });
-    const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
 
     const handleStart = () => {
         navigate('/contact');
@@ -33,13 +30,11 @@ const LandingPage = () => {
     };
 
     return (
-        <div ref={scrollRef} className="relative w-full overflow-hidden bg-brand-black text-white selection:bg-brand-red selection:text-white">
-            {/* Background Image with Parallax */}
-            {/* Background Image with Parallax */}
-            <motion.div
-                className="absolute top-0 left-0 w-full h-[120vh] z-0"
+        <div className="relative w-full overflow-hidden bg-brand-black text-white selection:bg-brand-red selection:text-white">
+            {/* Background Image */}
+            <div
+                className="absolute top-0 left-0 w-full h-full z-0"
                 style={{
-                    y,
                     backgroundImage: 'url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2670&auto=format&fit=crop")',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
@@ -112,7 +107,7 @@ const LandingPage = () => {
             </div>
 
             {/* Content Container */}
-            <div className="relative z-10 mx-auto max-w-5xl px-6 py-24 space-y-32">
+            <div className="relative z-10 mx-auto max-w-5xl px-6 py-12 md:py-24 space-y-16 md:space-y-32">
 
 
                 {/* Philosophy Section - Moved to top */}
@@ -145,25 +140,29 @@ const LandingPage = () => {
                 <motion.section
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
+                    viewport={{ once: true, amount: 0.1 }}
                     variants={fadeInUp}
-                    className="flex flex-col md:flex-row gap-12 items-center"
+                    className="flex flex-col md:flex-row gap-8 md:gap-12 items-center"
                 >
-                    <div className="flex-1 space-y-6">
-                        <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-red">{t('landing.welcome.title')}</h2>
-                        <div className="space-y-4 text-lg text-white/70 leading-relaxed font-light">
+                    <div className="flex-1 order-2 md:order-1 space-y-6">
+                        <h2 className="text-3xl md:text-5xl font-display font-bold text-brand-red text-center md:text-left">{t('landing.welcome.title')}</h2>
+                        <div className="space-y-4 text-base md:text-lg text-white/70 leading-relaxed font-light">
                             <p>{t('landing.welcome.letter_p1')}</p>
                             <p>{t('landing.welcome.letter_p2')}</p>
                             <p>{t('landing.welcome.letter_p3')}</p>
                             <p>{t('landing.welcome.letter_p4')}</p>
-                            <p className="pt-4 font-handwriting text-2xl text-white">{t('landing.welcome.signature')}</p>
+                            <p className="pt-4 font-handwriting text-2xl text-white text-center md:text-left">{t('landing.welcome.signature')}</p>
                         </div>
                     </div>
-                    {/* Optional: Add David's photo here if we had one, for now keeping it text-focused or using a placeholder graphic */}
-                    <div className="flex-1 flex justify-center">
-                        <div className="w-full h-[400px] bg-white/5 rounded-3xl border border-white/10 relative overflow-hidden group">
-                            <img src={welcomeImage} alt="Training" className="absolute inset-0 w-full h-full object-cover opacity-80 grayscale group-hover:grayscale-0 transition-all duration-700" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent" />
+
+                    <div className="flex-1 order-1 md:order-2 w-full flex justify-center">
+                        <div className="w-full max-w-md aspect-[3/4] md:h-[500px] md:aspect-auto bg-white/10 rounded-3xl border border-white/20 relative overflow-hidden shadow-2xl">
+                            <img
+                                src="/CamaronBiceps.jpg"
+                                alt="Training"
+                                className="absolute inset-0 w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent opacity-60" />
                             <div className="absolute bottom-6 left-6">
                                 <p className="text-white font-display font-bold text-xl uppercase tracking-widest">Focus</p>
                             </div>
@@ -175,7 +174,7 @@ const LandingPage = () => {
                 <motion.section
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     variants={staggerContainer}
                 >
                     <motion.div variants={fadeInUp} className="text-center mb-16">
@@ -216,7 +215,7 @@ const LandingPage = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: true, amount: 0.1 }}
                         className="text-center mb-16"
                     >
                         <h2 className="text-3xl md:text-5xl font-display font-bold uppercase">{t('landing.workflow.title')}</h2>
@@ -233,7 +232,7 @@ const LandingPage = () => {
                                 key={i}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
+                                viewport={{ once: true, amount: 0.1 }}
                                 transition={{ delay: i * 0.1 }}
                                 className="group p-8 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-brand-red transition-colors duration-300"
                             >
@@ -249,7 +248,7 @@ const LandingPage = () => {
                 <motion.section
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     variants={fadeInUp}
                     className="space-y-24"
                 >
@@ -282,7 +281,7 @@ const LandingPage = () => {
                 <motion.section
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     variants={fadeInUp}
                     className="p-8 md:p-12 rounded-3xl bg-gradient-to-br from-brand-red/10 to-transparent border border-brand-red/20"
                 >
@@ -313,7 +312,7 @@ const LandingPage = () => {
                 <motion.section
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     variants={staggerContainer}
                 >
                     <div className="text-center mb-16">
@@ -401,7 +400,7 @@ const LandingPage = () => {
                                     key={i}
                                     initial={{ opacity: 0, y: 10 }}
                                     whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
+                                    viewport={{ once: true, amount: 0.1 }}
                                     transition={{ delay: i * 0.1 }}
                                     className="group p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-red/30 hover:bg-brand-red transition-colors duration-300"
                                 >
