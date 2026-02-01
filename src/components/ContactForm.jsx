@@ -50,8 +50,24 @@ const ContactForm = () => {
 
         try {
             await addDoc(collection(db, 'contact_requests'), finalData);
-            alert(t('contact.success'));
-            navigate('/');
+
+            // WhatsApp Notification Logic
+            const whatsappMessage = `${t('contact.whatsapp.greeting', { name: formData.fullName })}
+            
+${t('contact.whatsapp.data_title')}
+- ${t('contact.whatsapp.goal', { goal: formData.motivation })}
+- ${t('contact.whatsapp.injuries', { injuries: formData.injury || t('contact.whatsapp.none') })}
+- ${t('contact.whatsapp.location', { location: `${formData.community}, ${formData.province}` })}
+
+${t('contact.whatsapp.closing')}`;
+
+            const whatsappUrl = `https://wa.me/34615328602?text=${encodeURIComponent(whatsappMessage)}`;
+
+            // Use location.href to ensure mobile redirection works (avoids popup blockers)
+            window.location.href = whatsappUrl;
+
+            // Optional: reset form or navigate if they return (commented out to allow back navigation)
+            // navigate('/');
         } catch (error) {
             console.error("Error adding document: ", error);
             alert(t('contact.error'));

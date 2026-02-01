@@ -1,10 +1,12 @@
+import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { X, Mail, Phone, Instagram, MapPin, Calendar, Clock, Heart, MoveRight, User, Eye, EyeOff } from 'lucide-react';
+import { X, Mail, Phone, Instagram, MapPin, Calendar, Clock, Heart, MoveRight, User, Eye, EyeOff, Trash2 } from 'lucide-react';
 
 const ContactRequestDetail = ({ request, onClose }) => {
+    const { t } = useTranslation();
     const [currentStatus, setCurrentStatus] = useState(request.status || 'pending');
     const [updating, setUpdating] = useState(false);
 
@@ -20,7 +22,22 @@ const ContactRequestDetail = ({ request, onClose }) => {
         } catch (error) {
             console.error("Error updating status:", error);
             setCurrentStatus(currentStatus); // Revert
-            alert("Error updating status");
+            alert(t('admin.status_error'));
+        } finally {
+            setUpdating(false);
+        }
+    };
+
+    const handleDelete = async () => {
+        if (!window.confirm(t('admin.delete_confirm'))) return;
+
+        setUpdating(true);
+        try {
+            await deleteDoc(doc(db, 'contact_requests', request.id));
+            onClose(); // Close modal on success
+        } catch (error) {
+            console.error("Error deleting document:", error);
+            alert(t('admin.delete_error'));
         } finally {
             setUpdating(false);
         }
@@ -40,27 +57,37 @@ const ContactRequestDetail = ({ request, onClose }) => {
                         <button onClick={onClose} className="rounded-full p-2 hover:bg-white/10">
                             <X size={20} />
                         </button>
-                        <h2 className="font-display text-xl font-bold">Request Details</h2>
+                        <h2 className="font-display text-xl font-bold">{t('admin.requests')}</h2>
                     </div>
 
-                    <button
-                        onClick={toggleStatus}
-                        disabled={updating}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${currentStatus === 'viewed'
+                    <div className="flex flex-col gap-2">
+                        <button
+                            onClick={toggleStatus}
+                            disabled={updating}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${currentStatus === 'viewed'
                                 ? 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white'
                                 : 'bg-brand-red text-white shadow-lg shadow-brand-red/20 hover:bg-red-600'
-                            }`}
-                    >
-                        {currentStatus === 'viewed' ? (
-                            <>
-                                <EyeOff size={14} /> Mark Unread
-                            </>
-                        ) : (
-                            <>
-                                <Eye size={14} /> Mark Viewed
-                            </>
-                        )}
-                    </button>
+                                }`}
+                        >
+                            {currentStatus === 'viewed' ? (
+                                <>
+                                    <EyeOff size={14} /> {t('admin.mark_unread')}
+                                </>
+                            ) : (
+                                <>
+                                    <Eye size={14} /> {t('admin.mark_viewed')}
+                                </>
+                            )}
+                        </button>
+
+                        <button
+                            onClick={handleDelete}
+                            disabled={updating}
+                            className="flex items-center justify-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-white/5 text-red-500 hover:bg-red-500/10 hover:text-red-400"
+                        >
+                            <Trash2 size={14} /> {t('admin.delete_request')}
+                        </button>
+                    </div>
                 </div>
 
                 <div className="flex-1 overflow-y-auto p-6 space-y-8">

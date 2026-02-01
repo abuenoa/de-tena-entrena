@@ -48,10 +48,7 @@ const LandingPage = () => {
             />
             <div className="absolute top-0 left-0 w-full h-full z-0 bg-gradient-to-b from-brand-black/40 via-brand-black/80 to-brand-black" />
 
-            {/* Language Switcher */}
-            <div className="absolute top-6 left-6 z-50">
-                <LanguageSwitcher />
-            </div>
+            {/* Language Switcher Removed - Moved to Layout */}
 
             {/* Hero Section */}
             <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden px-6">

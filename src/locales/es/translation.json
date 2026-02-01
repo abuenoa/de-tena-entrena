@@ -178,8 +178,22 @@
             "weight": "Peso",
             "sleep": "Sueño",
             "height": "Altura",
-            "nutrition": "Nutrición"
-        }
+            "nutrition": "Nutrición",
+            "average": "Media",
+            "training": "Entrenamiento",
+            "rest": "Descanso",
+            "neat": "NEAT/Actividad"
+        },
+        "score": "Puntuación (1-5)",
+        "add_checkin": "Nuevo Registro",
+        "checkin_success": "Registro guardado correctamente",
+        "main_notes": "Notas Principales",
+        "detailed_history": "Historial Detallado",
+        "history_desc": "Registro de check-ins diarios",
+        "progress_history": "Historial de Progreso",
+        "progress_desc": "Evolución de puntuaciones",
+        "edit_blueprint": "Editar Notas Principales",
+        "blueprint_desc": "Estas notas sirven de base para los nuevos registros diarios."
     },
     "common": {
         "coming_soon": "Próximamente"
@@ -205,11 +219,26 @@
             "sending": "Enviando..."
         },
         "success": "¡Mensaje enviado correctamente!",
-        "error": "Hubo un error al enviar el mensaje."
+        "error": "Hubo un error al enviar el mensaje.",
+        "whatsapp": {
+            "greeting": "¡Hola Cama! Soy {{name}}. Acabo de rellenar el formulario de contacto.",
+            "data_title": "📋 *Mis datos:*",
+            "goal": "🎯 *Objetivo:* {{goal}}",
+            "injuries": "🏥 *Lesiones:* {{injuries}}",
+            "location": "📍 *Ubicación:* {{location}}",
+            "closing": "¡Quedo a la espera de tu respuesta! 💪",
+            "none": "Ninguna"
+        }
     },
     "admin": {
         "clients": "Clientes",
         "requests": "Solicitudes",
-        "messages": "Mensajes"
+        "messages": "Mensajes",
+        "mark_viewed": "Marcar Leído",
+        "mark_unread": "Marcar No Leído",
+        "delete_request": "Borrar Solicitud",
+        "delete_confirm": "¿Seguro que quieres borrar esta solicitud? Esta acción no se puede deshacer.",
+        "delete_error": "Error al borrar la solicitud",
+        "status_error": "Error actualizando estado"
     }
 }
