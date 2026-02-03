@@ -7,6 +7,8 @@ import ClientList from './admin/ClientList';
 import ContactRequestsList from './admin/ContactRequestsList';
 import ClientDetail from './admin/ClientDetail';
 import ContactRequestDetail from './admin/ContactRequestDetail';
+import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
 import { useTranslation } from 'react-i18next';
 
 const AdminDashboard = () => {
@@ -17,6 +19,38 @@ const AdminDashboard = () => {
     const [selectedRequest, setSelectedRequest] = useState(null);
 
     const navigate = useNavigate();
+
+    const handleViewClient = async (clientId, email) => {
+        try {
+            let clientData = null;
+
+            if (clientId) {
+                const docRef = doc(db, 'users', clientId);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    clientData = { id: docSnap.id, ...docSnap.data() };
+                }
+            }
+
+            if (!clientData && email) {
+                const q = query(collection(db, 'users'), where('email', '==', email), where('role', '==', 'client'));
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) {
+                    clientData = { id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data() };
+                }
+            }
+
+            if (clientData) {
+                setSelectedRequest(null);
+                setActiveTab('clients');
+                setSelectedClient(clientData);
+            } else {
+                alert(t('admin.client_not_found', 'Client not found'));
+            }
+        } catch (error) {
+            console.error("Error navigating to client:", error);
+        }
+    };
 
     return (
         <div className="flex min-h-screen w-full flex-col bg-brand-black pb-24 text-white md:pl-24 md:pb-0">
@@ -110,6 +144,7 @@ const AdminDashboard = () => {
                         <ContactRequestDetail
                             request={selectedRequest}
                             onClose={() => setSelectedRequest(null)}
+                            onViewClient={handleViewClient}
                         />
                     </>
                 )}

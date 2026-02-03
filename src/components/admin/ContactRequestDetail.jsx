@@ -3,12 +3,16 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { X, Mail, Phone, Instagram, MapPin, Calendar, Clock, Heart, MoveRight, User, Eye, EyeOff, Trash2 } from 'lucide-react';
+import { X, Mail, Phone, Instagram, MapPin, Calendar, Clock, Heart, MoveRight, User, Eye, EyeOff, Trash2, CheckCircle, Lock, Loader2 } from 'lucide-react';
+import { createClientUser } from '../../utils/authUtils';
 
-const ContactRequestDetail = ({ request, onClose }) => {
+const ContactRequestDetail = ({ request, onClose, onViewClient }) => {
     const { t } = useTranslation();
     const [currentStatus, setCurrentStatus] = useState(request.status || 'pending');
     const [updating, setUpdating] = useState(false);
+    const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+    const [password, setPassword] = useState('');
+    const [accepting, setAccepting] = useState(false);
 
     const toggleStatus = async () => {
         if (updating) return;
@@ -40,6 +44,36 @@ const ContactRequestDetail = ({ request, onClose }) => {
             alert(t('admin.delete_error'));
         } finally {
             setUpdating(false);
+        }
+    };
+
+    const handleAccept = async (e) => {
+        e.preventDefault();
+        if (password.length < 6) {
+            alert(t('auth.password_label') + ": " + t('auth.password_min_length', 'Min. 6 characters'));
+            return;
+        }
+
+        setAccepting(true);
+        try {
+            // 1. Create the user
+            const newUser = await createClientUser(request.fullName, request.email, password);
+
+            // 2. Update the request status
+            const requestRef = doc(db, 'contact_requests', request.id);
+            await updateDoc(requestRef, {
+                status: 'accepted',
+                clientId: newUser.uid
+            });
+
+            setCurrentStatus('accepted');
+            setShowPasswordPrompt(false);
+            alert(t('admin.accept_success'));
+        } catch (error) {
+            console.error("Error accepting request:", error);
+            alert(t('admin.accept_error') + ": " + error.message);
+        } finally {
+            setAccepting(false);
         }
     };
 
@@ -82,15 +116,74 @@ const ContactRequestDetail = ({ request, onClose }) => {
 
                         <button
                             onClick={handleDelete}
-                            disabled={updating}
+                            disabled={updating || accepting}
                             className="flex items-center justify-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-white/5 text-red-500 hover:bg-red-500/10 hover:text-red-400"
                         >
                             <Trash2 size={14} /> {t('admin.delete_request')}
                         </button>
+
+                        {currentStatus !== 'accepted' ? (
+                            <button
+                                onClick={() => setShowPasswordPrompt(!showPasswordPrompt)}
+                                disabled={updating || accepting}
+                                className="flex items-center justify-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-green-500/20 text-green-500 hover:bg-green-500 hover:text-white"
+                            >
+                                <CheckCircle size={14} /> {t('admin.accept_request')}
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => onViewClient(request.clientId, request.email)}
+                                className="flex items-center justify-center gap-2 px-4 py-3 rounded-full text-xs font-bold uppercase tracking-wider bg-green-500/10 text-green-500 border border-green-500/20 hover:bg-green-500/20 transition-colors"
+                                title={t('admin.view_client_profile', 'View client profile')}
+                            >
+                                <CheckCircle size={14} /> {t('admin.accepted')}
+                            </button>
+                        )}
                     </div>
                 </div>
 
                 <div className="flex-1 overflow-y-auto p-6 space-y-8">
+                    {/* Password Prompt for Acceptance */}
+                    {showPasswordPrompt && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="p-5 rounded-2xl bg-brand-red/5 border border-brand-red/20 space-y-4"
+                        >
+                            <div className="flex items-center gap-2 text-brand-red">
+                                <Lock size={18} />
+                                <h4 className="font-bold">{t('admin.enter_password')}</h4>
+                            </div>
+                            <form onSubmit={handleAccept} className="space-y-3">
+                                <input
+                                    type="password"
+                                    required
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    placeholder={t('admin.password_placeholder')}
+                                    className="w-full rounded-xl border border-white/10 bg-brand-black/50 py-3 px-4 text-white focus:border-brand-red focus:outline-none"
+                                />
+                                <div className="flex gap-2">
+                                    <button
+                                        type="submit"
+                                        disabled={accepting}
+                                        className="flex-1 bg-brand-red text-white py-2 rounded-xl font-bold text-sm hover:bg-red-600 transition-colors disabled:opacity-50"
+                                    >
+                                        {accepting ? <Loader2 size={18} className="animate-spin mx-auto" /> : t('admin.accept_request')}
+                                    </button>
+                                    <button
+                                        type="button"
+                                        disabled={accepting}
+                                        onClick={() => setShowPasswordPrompt(false)}
+                                        className="px-4 py-2 rounded-xl border border-white/10 hover:bg-white/5 text-sm"
+                                    >
+                                        {t('common.cancel', 'Cancel')}
+                                    </button>
+                                </div>
+                            </form>
+                        </motion.div>
+                    )}
+
                     {/* Header Info */}
                     <div>
                         <h3 className="font-display text-2xl font-bold mb-1">{request.fullName}</h3>
