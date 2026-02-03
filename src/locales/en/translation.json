@@ -138,6 +138,7 @@
         "name_label": "Full Name",
         "email_label": "Email",
         "password_label": "Password",
+        "password_min_length": "Min. 6 characters",
         "login_btn": "ENTER",
         "register_btn": "CREATE ACCOUNT",
         "switch_sc_signup": "Don't have an account? Sign up",
@@ -198,7 +199,8 @@
         "blueprint_desc": "These notes serve as the baseline for new daily entries."
     },
     "common": {
-        "coming_soon": "Coming Soon"
+        "coming_soon": "Coming Soon",
+        "cancel": "Cancel"
     },
     "contact": {
         "title": "Contact Us",
@@ -240,6 +242,16 @@
         "delete_request": "Delete Request",
         "delete_confirm": "Are you sure you want to delete this request? This action cannot be undone.",
         "delete_error": "Error deleting request",
-        "status_error": "Error updating status"
+        "status_error": "Error updating status",
+        "accept_request": "Accept Request",
+        "accepted": "Accepted",
+        "enter_password": "Enter the password for the new client",
+        "accept_confirm": "Do you want to accept this request and create the account?",
+        "accept_success": "Request accepted and client account created",
+        "accept_error": "Error processing request",
+        "creating_account": "Creating account...",
+        "password_placeholder": "Password (min. 6 characters)",
+        "view_client_profile": "View client profile",
+        "client_not_found": "Client not found"
     }
 }

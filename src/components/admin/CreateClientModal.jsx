@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, User, Mail, Lock, CheckCircle, Loader2 } from 'lucide-react';
-import { initializeApp, getApp, getApps } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
-import { db, firebaseConfig } from '../../firebase';
 import { useTranslation } from 'react-i18next';
+import { createClientUser } from '../../utils/authUtils';
 
 const CreateClientModal = ({ isOpen, onClose, onSuccess }) => {
     const { t } = useTranslation();
@@ -14,40 +11,6 @@ const CreateClientModal = ({ isOpen, onClose, onSuccess }) => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-
-    // Logic to create user without logging out the admin
-    const createClientUser = async (name, email, password) => {
-        // Initialize a secondary app instance
-        const secondaryAppName = "secondaryAppForUserCreation";
-        let secondaryApp;
-
-        try {
-            secondaryApp = getApp(secondaryAppName);
-        } catch (e) {
-            secondaryApp = initializeApp(firebaseConfig, secondaryAppName);
-        }
-
-        const secondaryAuth = getAuth(secondaryApp);
-
-        // Create the user in the secondary app
-        const userCredential = await createUserWithEmailAndPassword(secondaryAuth, email, password);
-        const newUser = userCredential.user;
-
-        // Write to Firestore using the PRIMARY app's db instance (authenticated as admin)
-        // Note: Assuming Admin has write access to all user docs, or rules allow creating users
-        await setDoc(doc(db, 'users', newUser.uid), {
-            name,
-            email,
-            role: 'client',
-            createdAt: new Date().toISOString(),
-            photoURL: ''
-        });
-
-        // Sign out from the secondary app to clean up
-        await signOut(secondaryAuth);
-
-        return newUser;
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
