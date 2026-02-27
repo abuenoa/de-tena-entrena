@@ -2,8 +2,9 @@
     "landing": {
         "title_transform": "TRANSFORMA TU CUERPO",
         "title_elevate": "ELEVA TU VIDA",
-        "subtitle": "Únete a la élite. Experimenta el coaching online personalizado.",
+        "subtitle": "Únete al equipo. Experimenta el coaching online personalizado.",
         "cta": "EMPEZAR A ENTRENAR",
+        "scroll_explore": "Desliza para explorar",
         "welcome": {
             "title": "Bienvenido/a",
             "subtitle": "Empieza el viaje hacia tu mejor versión.",
@@ -20,14 +21,14 @@
             "you_list": [
                 "Seguir los entrenamientos asignados",
                 "Registrar tu progreso en Hevy",
-                "Seguir una alimentación equilibrada",
+                "Seguir los cambios de hábitos asignados",
                 "Enviar feedback y videos cuando se soliciten",
                 "Ser constante y honesto con tu proceso"
             ],
             "me_title": "💪 Qué voy a hacer yo",
             "me_list": [
                 "Revisar tu técnica y evolución constantemente",
-                "Videollamadas de seguimiento personalizadas",
+                "Guiarte por tu proceso de cambio físico a través de la mejora de hábitos",
                 "Disponibilidad regular con respuesta garantizada",
                 "Ajustes personalizados según tu progreso",
                 "Soporte continuo y orientación constante"
@@ -60,6 +61,11 @@
             "title": "Ellos ya confiaron.",
             "subtitle": "Ahora es tu turno."
         },
+        "testimonials_list": [
+            "En 3 meses he conseguido lo que llevaba años intentando. David me ha enseñado a entrenar de verdad.",
+            "El planteamiento inteligente marca la diferencia. No se trata de hacer más, si no de perfeccionar lo básico.",
+            "No es solo un entrenador, es alguien que realmente se preocupa por tu progreso. He aprendido más en 2 meses que en años."
+        ],
         "final_cta": {
             "ready": "¿Listo para empezar?",
             "button": "EMPEZAR A ENTRENAR"
@@ -125,7 +131,7 @@
                 },
                 {
                     "q": "¿Puedo cambiar mi horario de seguimiento?",
-                    "a": "Por supuesto. Háblame con antelación y ajustaremos las videollamadas y el plan a tu nueva disponibilidad. Flexibilidad y compromiso van de la mano."
+                    "a": "Por supuesto. Háblame con antelación y ajustaremos el plan a tu nueva disponibilidad. Flexibilidad y compromiso van de la mano."
                 }
             ]
         }
@@ -218,7 +224,11 @@
             "injury": "¿Tienes alguna patología, lesión crónica o enfermedad relevante?",
             "extras": "¿Algo más que añadir?",
             "submit": "ENVIAR SOLICITUD",
-            "sending": "Enviando..."
+            "sending": "Enviando...",
+            "instagram_label": "Instagram (Opcional)",
+            "location_title": "Ubicación",
+            "community": "Comunidad Autónoma",
+            "province": "Provincia / Ciudad"
         },
         "success": "¡Mensaje enviado correctamente!",
         "error": "Hubo un error al enviar el mensaje.",

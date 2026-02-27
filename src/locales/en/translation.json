@@ -2,8 +2,9 @@
     "landing": {
         "title_transform": "TRANSFORM YOUR BODY",
         "title_elevate": "ELEVATE YOUR LIFE",
-        "subtitle": "Join the elite. Experience personalized online coaching.",
+        "subtitle": "Join the team. Experience personalized online coaching.",
         "cta": "START TRAINING",
+        "scroll_explore": "Scroll to Explore",
         "welcome": {
             "title": "Welcome",
             "subtitle": "Start your journey to your best version.",
@@ -20,14 +21,14 @@
             "you_list": [
                 "Follow assigned workouts",
                 "Log your progress in Hevy",
-                "Follow a balanced diet",
+                "Follow the assigned habit changes",
                 "Send feedback and videos when requested",
                 "Be constant and honest with your process"
             ],
             "me_title": "💪 What I will do",
             "me_list": [
                 "Review your technique and evolution constantly",
-                "Personalized follow-up video calls",
+                "Guide you through your physical change process by improving habits",
                 "Regular availability with guaranteed response",
                 "Personalized adjustments according to your progress",
                 "Continuous support and constant guidance"
@@ -60,6 +61,11 @@
             "title": "They already trusted.",
             "subtitle": "Now it's your turn."
         },
+        "testimonials_list": [
+            "In 3 months I achieved what I had been trying for years. David has taught me how to train for real.",
+            "The smart approach makes the difference. It's not about doing more, but perfecting the basics.",
+            "He's not just a trainer, he's someone who truly cares about your progress. I've learned more in 2 months than in years on my own."
+        ],
         "final_cta": {
             "ready": "Ready to start?",
             "button": "START TRAINING"
@@ -125,7 +131,7 @@
                 },
                 {
                     "q": "Can I change my follow-up schedule?",
-                    "a": "Of course. Talk to me in advance and we will adjust video calls and the plan to your new availability. Flexibility and commitment go hand in hand."
+                    "a": "Of course. Talk to me in advance and we will adjust the plan to your new availability. Flexibility and commitment go hand in hand."
                 }
             ]
         }
@@ -220,7 +226,11 @@
             "injury": "Do you have any injuries or medical conditions?",
             "extras": "Anything else?",
             "submit": "SEND REQUEST",
-            "sending": "Sending..."
+            "sending": "Sending...",
+            "instagram_label": "Instagram (Optional)",
+            "location_title": "Location",
+            "community": "Region / State",
+            "province": "Province / City"
         },
         "success": "Message sent successfully!",
         "error": "Error sending message.",

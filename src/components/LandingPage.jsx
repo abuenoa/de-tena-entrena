@@ -87,7 +87,7 @@ const LandingPage = () => {
                     transition={{ delay: 1, duration: 1 }}
                     className="absolute bottom-10 flex flex-col items-center gap-2"
                 >
-                    <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/50">Scroll to Explore</span>
+                    <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/50">{t('landing.scroll_explore')}</span>
                     <ChevronDown className="w-6 h-6 text-white/50 animate-bounce" />
                 </motion.div>
             </section>
@@ -323,9 +323,9 @@ const LandingPage = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
-                            { name: "Alicia L.", img: "/Ali_testimonio.jpeg", text: "En 3 meses he conseguido lo que llevaba años intentando. David me ha enseñado a entrenar de verdad." },
-                            { name: "Carlos T.", img: "/Cepa_testimonio.jpeg", text: "El planteamiento inteligente marca la diferencia. No se trata de hacer más, si no de perfeccionar lo básico." },
-                            { name: "Antonio B.", img: "/Anto_testimonio.jpeg", text: "No es solo un entrenador, es alguien que realmente se preocupa por tu progreso. He aprendido más en 2 meses que en años." }
+                            { name: "Alicia L.", img: "/Ali_testimonio.jpeg", text: t('landing.testimonials_list', { returnObjects: true })[0] },
+                            { name: "Carlos T.", img: "/Cepa_testimonio.jpeg", text: t('landing.testimonials_list', { returnObjects: true })[1] },
+                            { name: "Antonio B.", img: "/Anto_testimonio.jpeg", text: t('landing.testimonials_list', { returnObjects: true })[2] }
                         ].map((item, i) => (
                             <motion.div
                                 key={i}

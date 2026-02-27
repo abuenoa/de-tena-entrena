@@ -142,7 +142,7 @@ ${t('contact.whatsapp.closing')}`;
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-bold uppercase tracking-wider text-white/50">Instagram (Opcional)</label>
+                                <label className="text-xs font-bold uppercase tracking-wider text-white/50">{t('contact.form.instagram_label')}</label>
                                 <input
                                     type="text"
                                     name="instagram"
@@ -170,12 +170,12 @@ ${t('contact.whatsapp.closing')}`;
                         <div className="space-y-4 p-6 bg-white/[0.02] rounded-2xl border border-white/5">
                             <div className="flex items-center gap-2 mb-2 text-brand-red">
                                 <MapPin size={18} />
-                                <span className="text-sm font-bold uppercase tracking-wider">Ubicación</span>
+                                <span className="text-sm font-bold uppercase tracking-wider">{t('contact.form.location_title')}</span>
                             </div>
 
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold uppercase tracking-wider text-white/50">Comunidad Autónoma</label>
+                                    <label className="text-xs font-bold uppercase tracking-wider text-white/50">{t('contact.form.community')}</label>
                                     <select
                                         required
                                         name="community"
@@ -191,7 +191,7 @@ ${t('contact.whatsapp.closing')}`;
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold uppercase tracking-wider text-white/50">Provincia / Ciudad</label>
+                                    <label className="text-xs font-bold uppercase tracking-wider text-white/50">{t('contact.form.province')}</label>
                                     <select
                                         required
                                         name="province"
@@ -246,7 +246,6 @@ ${t('contact.whatsapp.closing')}`;
                                     rows="3"
                                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-brand-red focus:bg-white/10 focus:outline-none transition-all resize-none placeholder:text-white/30"
                                     placeholder="Ej: Tengo una molestia en el hombro derecho al hacer press, operado de menisco en 2018..."
-                                    style={{ '::placeholder': { color: 'rgba(255,255,255,0.3)' } }}
                                 />
                             </div>
 
