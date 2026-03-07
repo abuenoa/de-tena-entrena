@@ -11,6 +11,7 @@ const ContactRequestDetail = ({ request, onClose, onViewClient }) => {
     const [currentStatus, setCurrentStatus] = useState(request.status || 'pending');
     const [updating, setUpdating] = useState(false);
     const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [password, setPassword] = useState('');
     const [accepting, setAccepting] = useState(false);
 
@@ -33,17 +34,17 @@ const ContactRequestDetail = ({ request, onClose, onViewClient }) => {
     };
 
     const handleDelete = async () => {
-        if (!window.confirm(t('admin.delete_confirm'))) return;
-
         setUpdating(true);
         try {
             await deleteDoc(doc(db, 'contact_requests', request.id));
+            window.dispatchEvent(new Event('requestDeleted'));
             onClose(); // Close modal on success
         } catch (error) {
             console.error("Error deleting document:", error);
             alert(t('admin.delete_error'));
         } finally {
             setUpdating(false);
+            setShowDeleteConfirm(false);
         }
     };
 
@@ -115,7 +116,7 @@ const ContactRequestDetail = ({ request, onClose, onViewClient }) => {
                         </button>
 
                         <button
-                            onClick={handleDelete}
+                            onClick={() => setShowDeleteConfirm(true)}
                             disabled={updating || accepting}
                             className="flex items-center justify-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-white/5 text-red-500 hover:bg-red-500/10 hover:text-red-400"
                         >
@@ -143,6 +144,37 @@ const ContactRequestDetail = ({ request, onClose, onViewClient }) => {
                 </div>
 
                 <div className="flex-1 overflow-y-auto p-6 space-y-8">
+                    {/* Delete Confirmation Prompt */}
+                    {showDeleteConfirm && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="p-5 rounded-2xl bg-brand-red/10 border border-brand-red space-y-4"
+                        >
+                            <div className="flex items-center gap-2 text-brand-red">
+                                <Trash2 size={18} />
+                                <h4 className="font-bold">{t('admin.delete_request')}</h4>
+                            </div>
+                            <p className="text-sm text-white/80">{t('admin.delete_confirm', '¿Seguro que quieres borrar esta solicitud? Esta acción no se puede deshacer.')}</p>
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={handleDelete}
+                                    disabled={updating}
+                                    className="flex-1 bg-brand-red text-white py-2 rounded-xl font-bold text-sm hover:bg-red-600 transition-colors flex justify-center items-center"
+                                >
+                                    {updating ? <Loader2 size={18} className="animate-spin" /> : t('admin.delete_request')}
+                                </button>
+                                <button
+                                    onClick={() => setShowDeleteConfirm(false)}
+                                    disabled={updating}
+                                    className="px-4 py-2 rounded-xl border border-white/10 hover:bg-white/5 text-sm transition-colors text-white"
+                                >
+                                    {t('common.cancel', 'Cancelar')}
+                                </button>
+                            </div>
+                        </motion.div>
+                    )}
+
                     {/* Password Prompt for Acceptance */}
                     {showPasswordPrompt && (
                         <motion.div
