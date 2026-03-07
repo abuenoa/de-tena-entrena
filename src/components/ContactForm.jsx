@@ -55,7 +55,7 @@ const ContactForm = () => {
             try {
                 // Web3Forms Integration
                 const web3formsData = {
-                    access_key: "83e4530b-9d6b-490b-bdea-1130f3326753",
+                    access_key: "b3dc650d-82dc-4940-ae23-ec727060ab99",
                     subject: `Nueva Solicitud de Contacto: ${formData.fullName}`,
                     from_name: "De Tena Entrena - Web",
                     name: formData.fullName,
