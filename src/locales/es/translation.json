@@ -261,6 +261,10 @@
         "creating_account": "Creando cuenta...",
         "password_placeholder": "Contraseña (min. 6 caracteres)",
         "view_client_profile": "Ver perfil del cliente",
-        "client_not_found": "Cliente no encontrado"
+        "client_not_found": "Cliente no encontrado",
+        "delete_client": "Borrar Cliente",
+        "delete_client_confirm": "¿Seguro que quieres borrar este cliente? Esta acción no se puede deshacer.",
+        "delete_client_error": "Error al borrar el cliente",
+        "delete_client_success": "Cliente borrado correctamente"
     }
 }

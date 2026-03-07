@@ -8,21 +8,38 @@ const ContactRequestsList = ({ onSelectRequest }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const q = query(collection(db, 'contact_requests'), orderBy('createdAt', 'desc'));
+        let unsubscribe;
 
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const requestsData = snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }));
-            setRequests(requestsData);
-            setLoading(false);
-        }, (error) => {
-            console.error("Error fetching requests:", error);
-            setLoading(false);
-        });
+        const fetchRequests = () => {
+            setLoading(true);
+            const q = query(collection(db, 'contact_requests'), orderBy('createdAt', 'desc'));
 
-        return () => unsubscribe();
+            unsubscribe = onSnapshot(q, (snapshot) => {
+                const requestsData = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                setRequests(requestsData);
+                setLoading(false);
+            }, (error) => {
+                console.error("Error fetching requests:", error);
+                setLoading(false);
+            });
+        };
+
+        fetchRequests();
+
+        const handleRequestDeleted = () => {
+            if (unsubscribe) unsubscribe();
+            fetchRequests();
+        };
+
+        window.addEventListener('requestDeleted', handleRequestDeleted);
+
+        return () => {
+            if (unsubscribe) unsubscribe();
+            window.removeEventListener('requestDeleted', handleRequestDeleted);
+        };
     }, []);
 
     if (loading) return <div className="text-white/50">Loading requests...</div>;

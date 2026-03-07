@@ -11,6 +11,7 @@ const ContactForm = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     // Form State
     const [formData, setFormData] = useState({
@@ -51,23 +52,42 @@ const ContactForm = () => {
         try {
             await addDoc(collection(db, 'contact_requests'), finalData);
 
-            // WhatsApp Notification Logic
-            const whatsappMessage = `${t('contact.whatsapp.greeting', { name: formData.fullName })}
-            
-${t('contact.whatsapp.data_title')}
-- ${t('contact.whatsapp.goal', { goal: formData.motivation })}
-- ${t('contact.whatsapp.injuries', { injuries: formData.injury || t('contact.whatsapp.none') })}
-- ${t('contact.whatsapp.location', { location: `${formData.community}, ${formData.province}` })}
+            try {
+                // Web3Forms Integration
+                const web3formsData = {
+                    access_key: "83e4530b-9d6b-490b-bdea-1130f3326753",
+                    subject: `Nueva Solicitud de Contacto: ${formData.fullName}`,
+                    from_name: "De Tena Entrena - Web",
+                    name: formData.fullName,
+                    email: formData.email,
+                    phone: formData.phone,
+                    motivation: formData.motivation,
+                    injury: formData.injury || 'Ninguna',
+                    location: `${formData.community}, ${formData.province}`,
+                    history: formData.history || 'Ninguno',
+                    ...formData
+                };
 
-${t('contact.whatsapp.closing')}`;
+                await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    body: JSON.stringify(web3formsData)
+                });
 
-            const whatsappUrl = `https://wa.me/34615328602?text=${encodeURIComponent(whatsappMessage)}`;
+            } catch (emailError) {
+                console.error("Error sending email via Web3Forms:", emailError);
+            }
 
-            // Use location.href to ensure mobile redirection works (avoids popup blockers)
-            window.location.href = whatsappUrl;
+            setFormData({
+                fullName: '', email: '', phone: '', dob: '', community: '', province: '',
+                history: '', motivation: '', referral: '', injury: '', extras: '', instagram: ''
+            });
 
-            // Optional: reset form or navigate if they return (commented out to allow back navigation)
-            // navigate('/');
+            setSuccess(true);
+
         } catch (error) {
             console.error("Error adding document: ", error);
             alert(t('contact.error'));
@@ -92,8 +112,37 @@ ${t('contact.whatsapp.closing')}`;
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-surface border border-white/10 rounded-3xl p-8 shadow-2xl"
+                    className="bg-surface border border-white/10 rounded-3xl p-8 shadow-2xl relative overflow-hidden"
                 >
+                    <AnimatePresence>
+                        {success && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute inset-0 z-50 bg-brand-black flex flex-col items-center justify-center p-8 text-center"
+                            >
+                                <motion.div
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ type: "spring", damping: 15 }}
+                                    className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-6"
+                                >
+                                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </motion.div>
+                                <h2 className="text-3xl font-display font-bold mb-8">{t('contact.success')}</h2>
+                                <button
+                                    onClick={() => navigate('/')}
+                                    className="bg-brand-red text-white font-bold py-3 px-8 rounded-full hover:bg-red-600 transition-colors uppercase tracking-wider text-sm shadow-lg shadow-brand-red/20"
+                                >
+                                    OK
+                                </button>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
                     <div className="mb-8">
                         <h1 className="font-display text-4xl font-bold mb-2 text-white">{t('contact.title')}</h1>
                         <p className="text-white/50 text-lg">{t('contact.subtitle')}</p>

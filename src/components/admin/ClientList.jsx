@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { Search, Filter, ChevronRight, UserPlus } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import CreateClientModal from './CreateClientModal';
 
 const ClientList = ({ onSelectClient }) => {
+    const { t } = useTranslation();
     const [clients, setClients] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -29,6 +31,13 @@ const ClientList = ({ onSelectClient }) => {
 
     useEffect(() => {
         fetchClients();
+
+        const handleClientDeleted = () => {
+            fetchClients();
+        };
+
+        window.addEventListener('clientDeleted', handleClientDeleted);
+        return () => window.removeEventListener('clientDeleted', handleClientDeleted);
     }, []);
 
     const filteredClients = clients.filter(client =>
@@ -42,7 +51,7 @@ const ClientList = ({ onSelectClient }) => {
         <div className="space-y-6">
             <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                    <h1 className="font-display text-3xl font-bold">Clients</h1>
+                    <h1 className="font-display text-3xl font-bold">{t('admin.clients')}</h1>
                     <p className="text-white/50">Manage your athletes.</p>
                 </div>
                 <div className="flex flex-col md:flex-row gap-4">

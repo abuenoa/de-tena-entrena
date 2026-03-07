@@ -1,9 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, Trash2 } from 'lucide-react';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { db } from '../../firebase';
+import { useTranslation } from 'react-i18next';
 import MetricsDashboard from '../shared/MetricsDashboard';
 
 const ClientDetail = ({ client, onClose }) => {
+    const { t } = useTranslation();
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    const handleDelete = async () => {
+        if (!window.confirm(t('admin.delete_client_confirm'))) return;
+
+        setIsDeleting(true);
+        try {
+            await deleteDoc(doc(db, 'users', client.id));
+            alert(t('admin.delete_client_success'));
+            window.dispatchEvent(new Event('clientDeleted'));
+            onClose();
+        } catch (error) {
+            console.error("Error deleting client:", error);
+            alert(t('admin.delete_client_error'));
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
     return (
         <motion.div
             initial={{ x: '100%' }}
@@ -23,9 +46,19 @@ const ClientDetail = ({ client, onClose }) => {
                             <span className="font-bold text-white/70">{client.name}</span>
                         </div>
                     </div>
-                    <button onClick={onClose} className="rounded-full p-2 hover:bg-white/10">
-                        <X size={20} />
-                    </button>
+                    <div className="flex items-center gap-2">
+                        <button 
+                            onClick={handleDelete}
+                            disabled={isDeleting}
+                            className="rounded-full p-2 text-white/50 hover:bg-red-500/10 hover:text-red-500 transition-colors"
+                            title={t('admin.delete_client')}
+                        >
+                            <Trash2 size={20} />
+                        </button>
+                        <button onClick={onClose} className="rounded-full p-2 hover:bg-white/10 text-white/50 hover:text-white transition-colors">
+                            <X size={20} />
+                        </button>
+                    </div>
                 </div>
 
                 <div className="flex-1 overflow-y-auto p-6 bg-[#121212]">
